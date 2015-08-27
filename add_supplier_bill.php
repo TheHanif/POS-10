@@ -139,6 +139,15 @@
 				</div>
 			</div>
 
+			<div class="col-md-6 col-md-offset-6">	
+				<div class="form-group">
+					<label for="bank_detail" class="col-sm-4 control-label">Cheque #: </label>
+					<div class="col-sm-7" style="margin-top:7px;">
+						<input type="text" name="cheque" class="form-control">
+					</div>
+				</div>
+			</div>
+
 			
 
 			<div class="clear"></div>

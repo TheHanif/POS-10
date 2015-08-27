@@ -135,12 +135,14 @@ class accounts extends database
      * @param  int 	   $status
      * @return Result True / False
      */
-	public function create_payable_receviable($amount, $account, $account_type, $date, $due_date, $type, $status)
+	public function create_payable_receviable($amount, $description, $account, $account_type, $bank, $date, $due_date, $type, $status)
 	{
 		$data = array();
 		$data['pr_amount'] = $amount;
+		$data['pr_description'] = $description;
 		$data['pr_account'] = $account;
 		$data['pr_account_type'] = $account_type;
+		$data['pr_bank'] = $bank;
 		$data['pr_date'] = $date;
 		$data['pr_due_date'] = $due_date;
 		$data['pr_type'] = $type;
@@ -192,8 +194,8 @@ class accounts extends database
 		$data['purchase_date'] = $date;
 		$data['purchase_account'] = $account;
 		$data['purchase_account_type'] = $account_type;
-		print_f($data);
-		die();
+		// print_f($data);
+		// die();
 		$this->insert($this->purchases, $data);
 		return $this->row_count();
 	} // End of Create Purchase Insert

@@ -80,7 +80,33 @@ class supplier extends database
 		$data['bill_amount'] = $add_supplier['bill_amount'];
 		$data['bill_type'] = $add_supplier['payment_type'];
 		$data['bill_bankdetail'] = $add_supplier['bank_detail'];
+		$data['bill_cheque'] = $add_supplier['cheque'];
+		
 		$this->insert($this->bills, $data);
+
+		$bill_status = $this->row_count();
+
+		if ($bill_status > 0) {
+			
+			// Create GL
+			$accounts = new accounts();
+			$accounts->create_general_ledger($add_supplier['bill_amount'], 'credit', 'supplier', 'bill', $accounts->_date('Y-m-d H:i:s', date('d-m-Y')));
+
+			// Payable
+			$amount = $add_supplier['bill_amount'];
+			$description = $add_supplier['cheque'];
+			$account = 'supplier';
+			$person = $add_supplier['supplier_id'];
+			$bank = $add_supplier['bank_detail'];
+			$date = $accounts->_date('Y-m-d H:i:s', date('d-m-Y'));
+			$due_date = $accounts->_date('Y-m-d H:i:s', $add_supplier['due_date']);
+			$type = 'payable';
+			$status = ($add_supplier['payment_type'] == 'cash')? 1 : 0;
+			$accounts->create_payable_receviable($amount, $description, $account, $person, $bank, $date, $due_date, $type, $status);
+
+		} // status
+
+
 
 		return $this->row_count();
 	} // end of do_register()

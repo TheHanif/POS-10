@@ -9,7 +9,7 @@
 			$accounts = new accounts();
 			
 			// Create General Ledger 
-			/*
+			
 			$amount = '2000';
 			$type = 'credit';
 			$account = 'Purchase';
@@ -17,7 +17,7 @@
 			$date = '24-08-2015';
 			$results = $accounts->create_general_ledger($amount, $type, $account, $account_type, $date);
 			print_f($results);
-			*/
+			
 
 			// Create Sales 
 			/*

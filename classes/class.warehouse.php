@@ -24,10 +24,27 @@ class warehouse extends database
 		$data['warehouse_qtytype'] = $form['p_qtytype'];
 		$data['warehouse_sp_bill'] = $form['sup_bill'];
 		
-		
-		// print_f($data);
-		// die();
 		$this->insert($this->table_name, $data);
+		
+		$accounts = new accounts();
+		$products = new product();
+		
+		// Create GL
+		$amount = $form['product_cost']*$products->generate_item_quantity($form['product_id'], $form['p_qtytype'], $form['product_quantity']);
+		$type = 'debit';
+		$account = 'Purchase';
+		$account_type = 'Stock';
+		$date = $accounts->_date('Y-m-d H:i:s', date('d-m-Y'));
+		$results = $accounts->create_general_ledger($amount, $type, $account, $account_type, $date);
+
+		// Purchase
+		$product = $form['product_id'];
+		$cost = $form['product_cost'];
+		$quantity = $products->generate_item_quantity($form['product_id'], $form['p_qtytype'], $form['product_quantity']);
+		$date = $date;
+		$account = 'purchase';
+		$account_type = 'stock';
+		$results = $accounts->create_purchase($product, $cost, $quantity, $date, $account, $account_type);
 
 		return $this->row_count();
 

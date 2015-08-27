@@ -71,6 +71,13 @@ class product extends database
 		return $this->result();
 	} // end of get
 
+	public function generate_item_quantity($ID, $type, $qty = 1)
+	{
+		$product = $this->pro_get($ID);
+		$type = 'p_sku'.$type;
+		return $product->$type*$qty;
+	}
+
 
 	public function get_product($ID = NULL)
 	{
