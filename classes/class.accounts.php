@@ -16,6 +16,8 @@ class accounts extends database
 		$this->payable_receviable = 'accounts_payable_receviable';	
 		$this->purchases = 'accounts_purchases';	
 		$this->reconcilation = 'account_reconcilation';	
+		$this->assets = 'accounts_assets';	
+		$this->capital = 'accounts_capital';	
 	}
 
 
@@ -247,6 +249,99 @@ class accounts extends database
 		$this->insert($this->reconcilation, $data);
 		return $this->row_count();
 	} // End of Create Purchase Insert
+
+
+
+	/**
+     * Assets Insert
+     * @param  string $type
+     * @param  string $amount
+     * @param  string $payment_mode cheque / cash
+     * @param  int 	  $bank
+     * @param  string $date
+     * @param  text   $detail
+     * @return Result True / False
+     */
+	public function create_assets($type, $amount, $payment_mode, $bank, $due_date, $detail)
+	{
+		$data = array();
+		$data['assets_type'] = $type;
+		$data['assets_amount'] = $amount;
+		$data['assets_payment_mode'] = $payment_mode;
+		$data['assets_bank'] = $bank;
+		$data['assets_due_date'] = $due_date;
+		$data['assets_detail'] = $detail;
+	
+		$this->insert($this->assets, $data);
+		return $this->row_count();
+	} // end of Assets Insert
+
+	// Assets Update
+	public function update_assets($type, $amount, $payment_mode, $bank, $due_date, $detail, $ID)
+	{
+		$data = array();
+		$ID;
+		$data['assets_type'] = $type;
+		$data['assets_amount'] = $amount;
+		$data['assets_payment_mode'] = $payment_mode;
+		$data['assets_bank'] = $bank;
+		$data['assets_due_date'] = $due_date;
+		$data['assets_detail'] = $detail;
+
+		$this->where('assets_id', $ID);
+		$this->update($this->assets, $data);
+		return $this->row_count();
+	} // end of Assets Update
+
+	public function get_assets($ID = NULL)
+	{
+		if (isset($ID)) {
+			$this->where('assets_id',$ID);
+		}
+		$this->from($this->assets);
+		return $this->all_results();
+	} // end of get_assets
+
+	/**
+     * Capital Insert
+     * @param  string $name
+     * @param  string $amount
+     * @param  string $date
+     * @param  text   $detail
+     * @return Result True / False
+     */
+	public function create_capital($name, $amount, $date, $detail)
+	{
+		$data = array();
+		$data['capital_name'] = $name;
+		$data['capital_amount'] = $amount;
+		$data['capital_detail'] = $detail;
+		$data['capital_date'] = $date;
+		$this->insert($this->capital, $data);
+		return $this->row_count();
+	} // end of Capital Insert
+
+	public function update_capital($name, $amount, $date, $detail, $ID)
+	{
+		$data = array();
+		$data['capital_name'] = $name;
+		$data['capital_amount'] = $amount;
+		$data['capital_detail'] = $detail;
+		$data['capital_date'] = $date;
+
+		$this->where('capital_id', $ID);
+		$this->update($this->capital, $data);
+		return $this->row_count();
+	} // end of Capital Update
+
+	public function get_capital($ID = NULL)
+	{
+		if (isset($ID)) {
+			$this->where('capital_id',$ID);
+		}
+		$this->from($this->capital);
+		return $this->all_results();
+	} // end of get_capital
 
 } // end of class
 

@@ -62,7 +62,18 @@
 					<li><a href="add_offer.php">Add Offer</a></li>
 		          </ul>
 		        </li>
-		        <li><a href="accounts.php">Accounts</a></li>
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Accounts<span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+		            <li><a href="accounts.php">Accounts</a></li>
+		            <li role="separator" class="divider"></li>
+		            <li><a href="view_assets.php">View Assets</a></li>
+					<li><a href="add_assets.php">Add Assets</a></li>
+					<li role="separator" class="divider"></li>
+		            <li><a href="view_capitals.php">View Capitals</a></li>
+					<li><a href="add_capitals.php">Add Capitals</a></li>
+		          </ul>
+		        </li>
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Purchases<span class="caret"></span></a>
 		          <ul class="dropdown-menu">

@@ -46,4 +46,18 @@ $skutype['bag']	= 'Bag';
 $skutype['box']	= 'Box';
 
 
+// Current Assets Detail Type
+$current_assets = array();
+$current_assets['cash']	= 'Cash';
+$current_assets['inventory']	= 'Inventory';
+$current_assets['dividend']	= 'Dividend';
+$current_assets['certificate']	= 'Certificates of Deposit';
+
+// Fixed Assets Detail Type
+$fixed_assets = array();
+$fixed_assets['land']	= 'Land';
+$fixed_assets['building']	= 'Building';
+$fixed_assets['vehicles']	= 'Vehicles';
+$fixed_assets['equipments']	= 'Equipments';
+$fixed_assets['machinery']	= 'Machinery';
 ?>
