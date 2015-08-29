@@ -78,42 +78,44 @@
 					<div class="form-group">
 						<label for="assets_payment_mode" class="col-sm-3 control-label">Payment Mode: </label>
 						<div class="col-sm-8">
-							<select name="assets_payment_mode" required>
+							<select name="assets_payment_mode"  id="payment_mode" required>
 								<option value="">Select Payment Mode</option>
-								<option value="case" <?php if(isset($ID) && 'cash' == $assets_result[0]->assets_payment_mode){echo 'selected=selected';}?>>Cash</option>
+								<option value="cash" <?php if(isset($ID) && 'cash' == $assets_result[0]->assets_payment_mode){echo 'selected=selected';}?>>Cash</option>
 								<option value="cheque" <?php if(isset($ID) && 'cheque' == $assets_result[0]->assets_payment_mode){echo 'selected=selected';}?>>Cheque</option>
 							</select>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-8">	
-					<div class="form-group">
-						<label for="bank_name" class="col-sm-3 control-label">Bank Name: </label>
-						<div class="col-sm-8">
-							<select name="bank_name" required>
-								<option value="">Select Bank Branch</option>
-								<?php foreach ($bank_result as $bank) { ?>
-							    	<option value="<?php echo $bank->bank_id; ?>" <?php if(isset($ID) && $bank->bank_id == $assets_result[0]->assets_bank){echo 'selected=selected';}?>><?php echo $bank->bank_name .' - '. $bank->bank_branch; ?></option>
-							    <?php
-									}
-								?>
-							</select>
+				<div id="payment_cheque_mode" <?php if(isset($ID) && 'cash' == $assets_result[0]->assets_payment_mode){echo 'style="display:none;"';}?>>
+					<div class="col-md-8">	
+						<div class="form-group">
+							<label for="bank_name" class="col-sm-3 control-label">Bank Name: </label>
+							<div class="col-sm-8">
+								<select name="bank_name" required>
+									<option value="">Select Bank Branch</option>
+									<?php foreach ($bank_result as $bank) { ?>
+								    	<option value="<?php echo $bank->bank_id; ?>" <?php if(isset($ID) && $bank->bank_id == $assets_result[0]->assets_bank){echo 'selected=selected';}?>><?php echo $bank->bank_name .' - '. $bank->bank_branch; ?></option>
+								    <?php
+										}
+									?>
+								</select>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="clear"></div>
-				<div class="col-md-8">	
-					<div class="form-group">
-						<label for="due_date" class="col-sm-3 control-label">Due Date: </label>
-						<div class="col-sm-8">
-							<div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="due_date" data-link-format="yyyy-mm-dd">
-			                    <input class="form-control" size="16" type="text" value="">
-			                    <span class="input-group-addon" style="padding: 6px 10px 6px 30px;"><span class="glyphicon glyphicon-calendar"></span></span>
-			                </div>
-							<input type="hidden" id="due_date" name="due_date" value="<?php echo (isset($ID))? $assets_result[0]->assets_due_date : '' ?>" /><br/>
+					<div class="clear"></div>
+					<div class="col-md-8">	
+						<div class="form-group">
+							<label for="due_date" class="col-sm-3 control-label">Due Date: </label>
+							<div class="col-sm-8">
+								<div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="due_date" data-link-format="yyyy-mm-dd">
+				                    <input class="form-control" size="16" type="text" value="">
+				                    <span class="input-group-addon" style="padding: 6px 10px 6px 30px;"><span class="glyphicon glyphicon-calendar"></span></span>
+				                </div>
+								<input type="hidden" id="due_date" name="due_date" value="<?php echo (isset($ID))? $assets_result[0]->assets_due_date : '' ?>" /><br/>
+							</div>
 						</div>
 					</div>
-				</div>
+				</div><!-- Close payment_cheque_mode -->
 				<div class="col-md-8">	
 					<div class="form-group">
 						<label for="assets_detail" class="col-sm-3 control-label">Detail: </label>

@@ -269,9 +269,9 @@ class accounts extends database
 		$data['assets_amount'] = $amount;
 		$data['assets_payment_mode'] = $payment_mode;
 		$data['assets_bank'] = $bank;
-		$data['assets_due_date'] = $due_date;
+		$data['assets_due_date'] = $this->_date('Y-m-d H:i:s', $due_date);
 		$data['assets_detail'] = $detail;
-	
+		
 		$this->insert($this->assets, $data);
 		return $this->row_count();
 	} // end of Assets Insert
@@ -285,7 +285,7 @@ class accounts extends database
 		$data['assets_amount'] = $amount;
 		$data['assets_payment_mode'] = $payment_mode;
 		$data['assets_bank'] = $bank;
-		$data['assets_due_date'] = $due_date;
+		$data['assets_due_date'] = $this->_date('Y-m-d H:i:s', $due_date);;
 		$data['assets_detail'] = $detail;
 
 		$this->where('assets_id', $ID);
@@ -316,7 +316,7 @@ class accounts extends database
 		$data['capital_name'] = $name;
 		$data['capital_amount'] = $amount;
 		$data['capital_detail'] = $detail;
-		$data['capital_date'] = $date;
+		$data['capital_date'] = $this->_date('Y-m-d H:i:s', $date);
 		$this->insert($this->capital, $data);
 		return $this->row_count();
 	} // end of Capital Insert
@@ -327,7 +327,7 @@ class accounts extends database
 		$data['capital_name'] = $name;
 		$data['capital_amount'] = $amount;
 		$data['capital_detail'] = $detail;
-		$data['capital_date'] = $date;
+		$data['capital_date'] = $this->_date('Y-m-d H:i:s', $date);
 
 		$this->where('capital_id', $ID);
 		$this->update($this->capital, $data);

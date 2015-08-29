@@ -115,14 +115,14 @@
 				<div class="form-group">
 					<label for="payment_type" class="col-sm-3 control-label">Payment Type: </label>
 					<div class="col-sm-8" style="margin-top:7px;">
-						<select name="payment_type">
+						<select name="payment_type" id="payment_mode">
 							<option value="cash">Cash</option>
 							<option value="cheque">Cheque</option>
 						</select>
 					</div>
 				</div>
 			</div>
-
+			<div id="payment_cheque_mode" style="display:none;">
 			<div class="col-md-6">	
 				<div class="form-group">
 					<label for="bank_detail" class="col-sm-4 control-label">Bank Detail: </label>
@@ -147,7 +147,7 @@
 					</div>
 				</div>
 			</div>
-
+			</div>
 			
 
 			<div class="clear"></div>

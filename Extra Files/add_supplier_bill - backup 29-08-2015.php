@@ -12,14 +12,16 @@
 			<?php 
 			$suppliers = new supplier();
 			$all_suppliers = $suppliers->get_suppliers();
-
+			
 			$bank = new bank();
 			$bank_result = $bank->get_banks();
+
 			
+
 			$accounts = new accounts();
 
 			$ID = (isset($_GET['id']))? $_GET['id'] : NULL;
-			if (isset($_POST['add_purchase'])) {		
+			if (isset($_POST['add_bill'])) {		
 				$supplier_id = $_POST['supplier_id'];
 				$bill_number = $_POST['bill_number'];
 				$due_date = $_POST['due_date'];
@@ -40,11 +42,10 @@
 				}
 				$date = new DateTime('now', new DateTimeZone('Asia/Karachi'));
 					$date =	$date->format("j-n-Y");
-				
-				
+		
 				// Add General Ladger
 				// $results = $accounts->create_general_ledger($amount, $type, $account, $account_type, $date);
-				$results_general_ledger = $accounts->create_general_ledger($bill_amount, $type, $account, $account_type, $date);
+				//$results_general_ledger = $accounts->create_general_ledger($bill_amount, $type, $account, $account_type, $date);
 				
 				$account = 'supplier';
 				$account_type = $supplier_id;
@@ -52,9 +53,11 @@
 				$status = 0;
 				// Add Account Payable
 				//$results = $accounts->create_payable_receviable($amount, $account, $person, $date, $due_date, $type, $status);
-				$results_account_payable = $accounts->create_payable_receviable($bill_amount, $account, $account_type, $date, $due_date, $type, $status);
+				//$results_account_payable = $accounts->create_payable_receviable($bill_amount, $account, $account_type, $date, $due_date, $type, $status);
 				
-				if (isset($results_account_payable)) {
+				$results = $suppliers->add_bill($_POST);
+
+				if (isset($results)) {
 					echo '<div class="alert alert-success" role="alert"> Add Purchase Sucessfully </div>';
 				}else{
 					echo '<div class="alert alert-danger" role="alert"> Error </div>';
@@ -88,10 +91,14 @@
 			</div>
 			<div class="clear"></div>
 			<div class="col-md-6">	
-				<div class="form-group ">
+				<div class="form-group">
 					<label for="due_date" class="col-sm-3 control-label">Due Date: </label>
 					<div class="col-sm-8">
-						<input type="text" name="due_date" value="" class="form-control" required>
+						<div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="due_date" data-link-format="yyyy-mm-dd">
+		                    <input class="form-control" size="16" type="text" value="">
+		                    <span class="input-group-addon" style="padding: 6px 10px 6px 30px;"><span class="glyphicon glyphicon-calendar"></span></span>
+		                </div>
+						<input type="hidden" id="due_date" name="due_date" value="" /><br/>
 					</div>
 				</div>
 			</div>
@@ -103,14 +110,14 @@
 					</div>
 				</div>
 			</div>
-
+			<div class="clear"></div>
 			<div class="col-md-6">	
 				<div class="form-group">
 					<label for="payment_type" class="col-sm-3 control-label">Payment Type: </label>
 					<div class="col-sm-8" style="margin-top:7px;">
 						<select name="payment_type">
 							<option value="cash">Cash</option>
-							<option value="credit">Credit</option>
+							<option value="cheque">Cheque</option>
 						</select>
 					</div>
 				</div>
@@ -121,10 +128,22 @@
 					<label for="bank_detail" class="col-sm-4 control-label">Bank Detail: </label>
 					<div class="col-sm-7" style="margin-top:7px;">
 						<select name="bank_detail">
-							<?php foreach ($bank_result as $value) { ?>
-								<option value="<?php echo $value->bank_id; ?>"><?php echo $value->bank_name .' - '. $value->bank_branch ; ?></option>
-							<?php } ?>
+							<option value="">Select Bank Branch</option>
+							<?php foreach ($bank_result as $bank) { ?>
+						    	<option value="<?php echo $bank->bank_id; ?>"><?php echo $bank->bank_name .' - '. $bank->bank_branch; ?></option>
+						    <?php
+								}
+							?>
 						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6 col-md-offset-6">	
+				<div class="form-group">
+					<label for="bank_detail" class="col-sm-4 control-label">Cheque #: </label>
+					<div class="col-sm-7" style="margin-top:7px;">
+						<input type="text" name="cheque" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -136,7 +155,7 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label"></label>
 					<div class="col-sm-9">
-						<button type="submit" class="btn submitBtn" name="add_purchase"><?php echo (isset($_GET['id']))? 'Update' : 'Add' ?> Purchase</button>
+						<button type="submit" class="btn submitBtn" name="add_bill"><?php echo (isset($_GET['id']))? 'Update' : 'Add' ?> Purchase</button>
 					</div>
 			  	</div>
 			</div>
