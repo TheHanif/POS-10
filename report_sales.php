@@ -30,7 +30,6 @@
 		</div><!-- Row Close -->
 	</div><!-- Container Close -->
 
-
 	<div class="container" style="margin-bottom:50px; text-align:center;">
 		<div class="row">
 			<ul class="headingTable">
@@ -66,6 +65,7 @@
 		</div>
 		<?php echo $sub_total; ?>
 	</div>
+	
 	<div class="clear"></div>
 </section>
 <?php require_once 'footer.php'; ?>

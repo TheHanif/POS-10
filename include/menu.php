@@ -67,6 +67,9 @@
 		          <ul class="dropdown-menu">
 		            <li><a href="accounts.php">Accounts</a></li>
 		            <li role="separator" class="divider"></li>
+		            <li><a href="view_payable.php">View Account Payable</a></li>
+					<li><a href="view_receviable.php">View Account Receviable</a></li>
+		            <li role="separator" class="divider"></li>
 		            <li><a href="view_assets.php">View Assets</a></li>
 					<li><a href="add_assets.php">Add Assets</a></li>
 					<li role="separator" class="divider"></li>
@@ -94,11 +97,13 @@
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
 		          <ul class="dropdown-menu">
 		            <li><a href="sales_form.php">Sales Report</a></li>
+					<li><a href="report_profitloss.php">Profit &amp; Loss Report</a></li>
+					<li><a href="report_acc_payable.php">Account Payable Report</a></li>
+					<li><a href="report_acc_receviable.php">Account Receviable Report</a></li>
 					<li><a href="#">Supplier Report</a></li>
 					<li><a href="#">Product Stock Report</a></li>
 					<li><a href="#">Product Expiry Report</a></li>
 					<li><a href="#">Sales Person</a></li>
-					<li><a href="#">Profit &amp; Loss Report</a></li>
 					<li><a href="#">Purchase Report</a></li>
 					<li><a href="#">Account Report</a></li>
 		          </ul>

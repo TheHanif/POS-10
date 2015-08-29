@@ -80,7 +80,6 @@ class accounts extends database
 		}else
 		if (!empty($to_date)) {
 			$this->where('sales_date',$to_date);
-			// $this->where('sales_date', array($to_date,$from_date), 'BETWEEN');
 		}
 
 		$this->inner_join('products', 'p', 'p.p_id = accounts_sales.sales_product_id');
@@ -118,10 +117,19 @@ class accounts extends database
 		if (isset($product_id)) {
 			$this->where('pl_product_id',$product_id);
 		}
-		if (isset($to_date)) {
+
+		if (!empty($to_date) && !empty($from_date)) {
 			$this->where('pl_date', array($to_date,$from_date), 'BETWEEN');
+		}else
+		if (!empty($to_date)) {
+			$this->where('pl_date',$to_date);
 		}
+
+		// $this->force_select_all();
+		// $this->select(array('SUM(accounts_profitloss.pl_profit)' => 'profit_amount'));
 		$this->inner_join('products', 'p', 'p.p_id = accounts_profitloss.pl_product_id');
+		// $this->group_by('accounts_profitloss.pl_product_id');
+
 		$this->from($this->profitloss);
 		return $this->all_results();
 	} // End of Profit Loss Report
@@ -154,7 +162,7 @@ class accounts extends database
 	} // End of Payable / Receviable Insert
 
 	// Get Payable / Receviable Report
-	public function get_payable_receviable_report($account = NULL, $account_type = NULL, $to_date = NULL, $from_date = NULL, $type = NULL, $status = NULL)
+	public function get_payable_receviable_report($account = NULL, $account_type = NULL, $to_date = NULL, $from_date = NULL, $type = NULL, $status = NULL, $bank = NULL)
 	{
 		if (isset($account)) {
 			$this->where('pr_account',$account);
@@ -162,17 +170,24 @@ class accounts extends database
 		if (isset($account_type)) {
 			$this->where('pr_account_type',$account_type);
 		}
-		if (isset($to_date) || isset($from_date)) {
+		if (!empty($to_date) && !empty($from_date)) {
 			$this->where('pr_date', array($to_date,$from_date), 'BETWEEN');
+		}else
+		if (!empty($to_date)) {
+			$this->where('pr_date',$to_date);
 		}
-
 		if (isset($type)) {
 			$this->where('pr_type',$type);
 		}
-
+		if (isset($bank)) {
+			$this->where('pr_bank',$bank);
+		}
 		if (isset($status)) {
 			$this->where('pr_status',$status);
 		}
+
+		$this->inner_join('banks', 'b', 'b.bank_id = accounts_payable_receviable.pr_bank');
+		$this->inner_join('supplier', 's', 's.sup_id = accounts_payable_receviable.pr_account_type');
 		$this->from($this->payable_receviable);
 		return $this->all_results();
 	} // End of Payable / Receviable Report
