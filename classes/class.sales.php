@@ -29,21 +29,45 @@ class sales extends database
 		else {
 			return false;
 		}
-	
 
-		// print_f($_SESSION['terminal_list']);
 		// Sales Products Insert in Sale Products Table
 		if($sale_id){
+
 			foreach ($_SESSION['terminal_list'] as $key => $value) {
 
-				
-				$product['salepro_product_id']			= $value[key($value)]['product_id'];
-				$product['salepro_product_price'] 		= $value[key($value)]['price'];
-				$product['salepro_product_quantity']	= $value[key($value)]['quantity'];
-				$product['salepro_sale_id']				= $sale_id;
+				$val_array = array();
+				foreach ($value[key($value)] as $key_array => $value_array) {
+					$val_array[$key_array] = $value_array;
+				}
 
+				$product['salepro_product_id']			= $val_array['p_id'];
+				$product['salepro_product_price'] 		= $val_array['p_price']-$val_array['discount_amount'];
+				$product['salepro_product_quantity']	= $val_array['quantity'];
+				$product['salepro_sale_id']				= $sale_id;
 				
 				$this->insert('sale_product', $product);
+
+
+				// Account
+				$accounts = new accounts();
+				
+				// Sale and revenue
+				$product_id = $val_array['p_id'];
+				$cost = $val_array['p_cost'];
+				$price = $val_array['p_price']-$val_array['discount_amount'];
+				$quantity = $val_array['quantity'];
+				$total = $price * $quantity;
+				$date = $accounts->_date('Y-m-d H:i:s', date('d-m-Y'));
+				$accounts->create_sales($product_id, $cost, $price, $quantity, $total, $date);
+				
+				// Profit and loss
+				$cost1 = $cost * $quantity;
+				$price1 = $price * $quantity;
+				$profit = $price1 - $cost1;
+				$results = $accounts->create_profitloss($product_id, $cost, $price, $quantity, $profit, $date);
+				
+
+
 			}
 			return true;
 		}

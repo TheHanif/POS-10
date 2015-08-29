@@ -24,6 +24,8 @@ class Database {
     public $_table;
     public $_data = array();
     public $_joins = array();
+    public $_group_by;
+    public $_force_select_all = false;
 
     /**
      * Connect Database
@@ -49,6 +51,15 @@ class Database {
         $this->_where[$column_name][] = $operator;
     }
 
+
+
+
+
+
+    function group_by($column){
+        $this->_group_by = $column;
+    } // end ofgroup_by
+
     /**
      * Define columns to select
      * @param array $columns
@@ -58,6 +69,11 @@ class Database {
             $this->_select[$column] = $name;
         }
     }
+
+    public function force_select_all()
+    {
+        $this->_force_select_all = true;
+    } // end of force_select_all
 
     /**
      * Bind params, alias where()
@@ -97,6 +113,7 @@ class Database {
             $this->_select = array();
             $this->_data = array();
             $this->_joins = array();
+            $this->_groupt_by = '';
 
 
             // $this->_query = '';
@@ -225,8 +242,14 @@ class Database {
      */
     public function build_query() {
         $query = $this->_action;
+        
         if ($this->_action == 'SELECT') {
             if (!empty($this->_select)) {
+
+                if ($this->_force_select_all == true) {
+                    $query .= ' *,';
+                }
+
                 foreach ($this->_select as $column_name => $name) {
                     $query .=' ' . $column_name . ' as ' . $name . ', ';
                 }
@@ -235,6 +258,7 @@ class Database {
             }
             $query = rtrim($query, ', ');
         }
+
         if ($this->_action != 'UPDATE' && $this->_action != 'INSERT') {
             $query .= ' FROM ';
         }
@@ -290,9 +314,17 @@ class Database {
             $query .= ')';
 
         }
+        
+        if(!empty($this->_group_by)){
+            $query .= ' GROUP BY ' . $this->_group_by;
+        }
+
         if ($this->_action != 'INSERT' && !empty($this->_limit)) {
             $query .= ' LIMIT ' . $this->_limit;
         }
+
+
+
         $this->query($query);
     }
 

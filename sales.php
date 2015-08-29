@@ -1,7 +1,8 @@
 <?php 
 require_once 'common/init.php';
 
-$sales = new sales();
+
+$form = array();
 
 $form['bill_number'] = $bill_number;
 $form['user_shift_number'] = $user_shift_number;
@@ -12,15 +13,17 @@ $form['payment_mode'] = $_GET['payment_mode'];
 
 // Sale Insert Disable for Main reason is first offers item and discounted prise final
 // Report Print Section Completest
-/*
-$results = $sales->sale_insert($form);
 
+$sales = new sales();
+$results = $sales->sale_insert($form);
+print_f($results);
+die();
 if ($results) {
 //	echo 'Sucess';
 }else{
 //	echo 'Error';
 }
-*/
+
 
 ?>
 

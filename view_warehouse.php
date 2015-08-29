@@ -7,9 +7,12 @@
 				<p class="nomargin alignCenter">View Product in Warehouse</p>
 			</div>
 			<div class="col-md-12">	
-				<?php 
+				<?php
 				$warehouse = new warehouse();
 				$results = $warehouse->get_products();
+
+				print_f($results);
+
 				if ($results) {
 				?>
 				<table border="1" cellpadding="5" cellspacing="0" class="table table-hover tableView">

@@ -100,7 +100,14 @@ class warehouse extends database
 		}
 		else {
 			// $this->where('id',$ID);
+
+			$this->force_select_all();
+
+			$this->select(array('SUM(warehouse.warehouse_quantity)' => 'qty'));
+
 			$this->inner_join('products', 'p', 'p.p_id = warehouse.product_id');
+			$this->group_by('warehouse.product_id');
+
 			$this->from($this->table_name);
 			return $this->all_results();
 		}
@@ -123,6 +130,7 @@ class warehouse extends database
 		if (isset($barcode)) {
 			$this->where('inv_barcode',$barcode);
 		}
+
 
 		$this->from($this->table_name);
 
