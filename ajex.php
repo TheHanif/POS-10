@@ -34,6 +34,16 @@ if(isset($_POST['action']) && $_POST['action'] == 'add'){
 	return 'sucess';
 }
 
+// Terminal Switch Function
+if(isset($_POST['action']) && $_POST['action'] == 'switch'){
+	$id	= $_POST['id'];
+	unset($_SESSION['terminal_list']);
+	$_SESSION['terminal_list'] = $_SESSION['hold_session'][$id];
+	unset($_SESSION['hold_session'][$id]);
+	$_SESSION['faizan'] = 1;
+	return 'sucess';
+}
+
 // Get Single Product Detail for Add Product in Warehouse Page
 if(isset($_POST['action']) && $_POST['action'] == 'getproductdetail'){
 	$getproduct		= $_POST['getproduct'];

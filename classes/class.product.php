@@ -29,9 +29,6 @@ class product extends database
 		$data['p_skucarton'] = $form['p_skucarton'];
 		$data['p_skubag'] = $form['p_skubag'];
 
-		print_f($data);
-		die();
-
 		$this->insert($this->table_name, $data);
 
 		return $this->row_count();
@@ -100,6 +97,26 @@ class product extends database
 
 		return $this->all_results();
 	} // end of get
+
+	public function get_product_report($product_name = NULL, $supplier_name = NULL, $product_place = NULL)
+	{
+		return $product_place;
+		/*
+		if (isset($product_name)) {
+			$this->where('p_id',$product_name);
+		}
+
+		if (isset($supplier_name)) {
+			$this->where('p_supplier',$supplier_name);
+		}
+		
+		
+		$this->from($this->table_name);
+
+		return $this->all_results(); */
+	} // end of get
+	
+	
 
 } // end of class
 

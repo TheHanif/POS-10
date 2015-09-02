@@ -317,6 +317,24 @@ class accounts extends database
 		return $this->all_results();
 	} // end of get_assets
 
+
+	public function get_assets_report($assets_type = NULL, $to_date = NULL, $from_date = NULL)
+	{
+		if (isset($assets_type)) {
+			$this->where('assets_type',$assets_type);
+		}
+
+		if (!empty($to_date) && !empty($from_date)) {
+			$this->where('assets_timestamp', array($to_date,$from_date), 'BETWEEN');
+		}else
+		if (!empty($to_date)) {
+			$this->where('assets_timestamp',$to_date);
+		}
+
+		$this->from($this->assets);
+		return $this->all_results();
+	} // End of get_assets_report Report
+
 	/**
      * Capital Insert
      * @param  string $name
@@ -357,6 +375,19 @@ class accounts extends database
 		$this->from($this->capital);
 		return $this->all_results();
 	} // end of get_capital
+
+	public function get_capital_report($to_date = NULL, $from_date = NULL)
+	{
+		if (!empty($to_date) && !empty($from_date)) {
+			$this->where('capital_date', array($to_date,$from_date), 'BETWEEN');
+		}else 
+		if (!empty($to_date)) {
+			$this->where('capital_date',$to_date);
+		}
+
+		$this->from($this->capital);
+		return $this->all_results();
+	} // End of get_assets_report Report
 
 } // end of class
 

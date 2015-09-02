@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2015 at 10:42 AM
+-- Generation Time: Sep 02, 2015 at 10:08 AM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -17,8 +17,54 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `pointofsale`
+-- Database: `pointofsale1`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accounts_assets`
+--
+
+CREATE TABLE IF NOT EXISTS `accounts_assets` (
+  `assets_id` int(11) NOT NULL,
+  `assets_type` varchar(128) NOT NULL,
+  `assets_amount` varchar(32) NOT NULL,
+  `assets_payment_mode` varchar(32) NOT NULL,
+  `assets_bank` int(11) NOT NULL,
+  `assets_due_date` varchar(32) NOT NULL,
+  `assets_detail` text NOT NULL,
+  `assets_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `accounts_assets`
+--
+
+INSERT INTO `accounts_assets` (`assets_id`, `assets_type`, `assets_amount`, `assets_payment_mode`, `assets_bank`, `assets_due_date`, `assets_detail`, `assets_timestamp`) VALUES
+(0, 'building', '5000', 'cheque', 2, '2015-08-31', 'Taj Mahal Purchase for Gift...', '2015-08-29 05:38:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accounts_capital`
+--
+
+CREATE TABLE IF NOT EXISTS `accounts_capital` (
+  `capital_id` int(11) NOT NULL,
+  `capital_name` varchar(128) NOT NULL,
+  `capital_amount` varchar(64) NOT NULL,
+  `capital_detail` text NOT NULL,
+  `capital_date` varchar(32) NOT NULL,
+  `capital_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `accounts_capital`
+--
+
+INSERT INTO `accounts_capital` (`capital_id`, `capital_name`, `capital_amount`, `capital_detail`, `capital_date`, `capital_timestamp`) VALUES
+(1, 'Faizan', '200000', 'Extra Money Invest...', '2015-08-31', '2015-08-29 06:06:48');
 
 -- --------------------------------------------------------
 
@@ -34,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `accounts_general_ledger` (
   `gl_account_type` varchar(32) NOT NULL,
   `gl_date` varchar(32) NOT NULL,
   `gl_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accounts_general_ledger`
@@ -42,7 +88,21 @@ CREATE TABLE IF NOT EXISTS `accounts_general_ledger` (
 
 INSERT INTO `accounts_general_ledger` (`gl_id`, `gl_amount`, `gl_type`, `gl_account`, `gl_account_type`, `gl_date`, `gl_timestamp`) VALUES
 (5, 20000, 'debit', 'bank', '1', '24-8-2015', '2015-08-24 14:29:24'),
-(6, 5000, 'debit', 'bank', '3', '27-8-2015', '2015-08-27 07:43:07');
+(6, 5000, 'debit', 'bank', '3', '27-8-2015', '2015-08-27 07:43:07'),
+(7, 2000, 'credit', 'Purchase', 'General Purchase', '24-08-2015', '2015-08-27 12:12:27'),
+(8, 102, 'credit', 'supplier', 'bill', '2015-08-27 00:00:00', '2015-08-27 12:17:17'),
+(9, 102, 'credit', 'supplier', 'bill', '2015-08-27 00:00:00', '2015-08-27 12:22:30'),
+(10, 102, 'credit', 'supplier', 'bill', '2015-08-27 00:00:00', '2015-08-27 12:26:59'),
+(11, 102, 'credit', 'supplier', 'bill', '2015-08-27 00:00:00', '2015-08-27 12:27:25'),
+(12, 102, 'credit', 'supplier', 'bill', '2015-08-27 00:00:00', '2015-08-27 12:35:38'),
+(13, 0, 'debit', 'Purchase', 'Stock', '2015-08-27 00:00:00', '2015-08-27 13:05:17'),
+(14, 54000, 'debit', 'Purchase', 'Stock', '2015-08-27 00:00:00', '2015-08-27 13:06:02'),
+(15, 54000, 'debit', 'Purchase', 'Stock', '2015-08-27 00:00:00', '2015-08-27 13:09:37'),
+(16, 54000, 'debit', 'Purchase', 'Stock', '2015-08-27 00:00:00', '2015-08-27 13:13:49'),
+(17, 500, 'credit', 'supplier', 'bill', '2015-08-29 00:00:00', '2015-08-29 07:01:22'),
+(18, 600, 'credit', 'supplier', 'bill', '2015-08-29 00:00:00', '2015-08-29 07:01:58'),
+(19, 2000, 'credit', 'supplier', 'bill', '2015-09-02 00:00:00', '2015-09-02 05:00:31'),
+(20, 16800, 'debit', 'Purchase', 'Stock', '2015-09-02 00:00:00', '2015-09-02 05:01:01');
 
 -- --------------------------------------------------------
 
@@ -53,22 +113,30 @@ INSERT INTO `accounts_general_ledger` (`gl_id`, `gl_amount`, `gl_type`, `gl_acco
 CREATE TABLE IF NOT EXISTS `accounts_payable_receviable` (
   `pr_id` int(11) NOT NULL,
   `pr_amount` float NOT NULL,
+  `pr_description` text NOT NULL,
   `pr_account` varchar(64) NOT NULL,
   `pr_account_type` varchar(128) NOT NULL,
+  `pr_bank` int(11) NOT NULL,
   `pr_date` varchar(32) NOT NULL,
   `pr_due_date` varchar(32) NOT NULL,
   `pr_type` varchar(32) NOT NULL,
   `pr_status` int(11) NOT NULL,
   `pr_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accounts_payable_receviable`
 --
 
-INSERT INTO `accounts_payable_receviable` (`pr_id`, `pr_amount`, `pr_account`, `pr_account_type`, `pr_date`, `pr_due_date`, `pr_type`, `pr_status`, `pr_timestamp`) VALUES
-(3, 20000, 'supplier', '2', '2015-08-24 00:00:00', '31-08-2015', 'payable', 0, '2015-08-24 14:29:24'),
-(4, 5000, 'supplier', '2', '27-8-2015', '2015-08-28', 'payable', 0, '2015-08-27 07:43:07');
+INSERT INTO `accounts_payable_receviable` (`pr_id`, `pr_amount`, `pr_description`, `pr_account`, `pr_account_type`, `pr_bank`, `pr_date`, `pr_due_date`, `pr_type`, `pr_status`, `pr_timestamp`) VALUES
+(3, 20000, '', 'supplier', '2', 3, '2015-08-24 00:00:00', '2015-08-31 00:00:00', 'receviable', 0, '2015-08-24 14:29:24'),
+(4, 5000, '', 'supplier', '2', 2, '2015-08-27 00:00:00', '2015-08-28 00:00:00', 'payable', 0, '2015-08-27 07:43:07'),
+(5, 102, '', 'supplier', '1', 1, '2015-08-27 00:00:00', '2015-08-27 00:00:00', 'payable', 0, '2015-08-27 12:22:30'),
+(6, 102, '', 'supplier', '1', 1, '2015-08-28 00:00:00', '2015-08-28 00:00:00', 'payable', 0, '2015-08-27 12:27:26'),
+(7, 102, '0000002', 'supplier', '1', 1, '2015-08-27 00:00:00', '2015-08-27 00:00:00', 'payable', 0, '2015-08-27 12:35:38'),
+(8, 500, '', 'supplier', '2', 2, '2015-08-29 00:00:00', '2015-09-06 00:00:00', 'payable', 0, '2015-08-29 07:01:22'),
+(9, 600, '1234567890', 'supplier', '2', 2, '2015-08-29 00:00:00', '2015-08-31 00:00:00', 'payable', 0, '2015-08-29 07:01:58'),
+(10, 2000, '1234567899', 'supplier', '1', 1, '2015-09-02 00:00:00', '2015-09-02 00:00:00', 'payable', 0, '2015-09-02 05:00:31');
 
 -- --------------------------------------------------------
 
@@ -85,14 +153,31 @@ CREATE TABLE IF NOT EXISTS `accounts_profitloss` (
   `pl_profit` float NOT NULL,
   `pl_date` varchar(32) NOT NULL,
   `pl_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accounts_profitloss`
 --
 
 INSERT INTO `accounts_profitloss` (`pl_id`, `pl_product_id`, `pl_cost`, `pl_price`, `pl_quantity`, `pl_profit`, `pl_date`, `pl_timestamp`) VALUES
-(1, 2, 20.5, 25, 2, 9, '2015-08-24 00:00:00', '2015-08-24 11:56:14');
+(1, 2, 20.5, 25, 2, 9, '2015-08-24 00:00:00', '2015-08-24 11:56:14'),
+(2, 1, 20, 30, 1, 10, '2015-08-29 00:00:00', '2015-08-29 10:20:25'),
+(3, 1, 20, 30, 2, 20, '2015-08-29 00:00:00', '2015-08-29 10:20:25'),
+(4, 2, 45, 40, 2, -10, '2015-08-29 00:00:00', '2015-08-29 10:20:25'),
+(5, 2, 45, 40, 3, -15, '2015-08-29 00:00:00', '2015-08-29 10:20:25'),
+(6, 3, 45, 55, 4, 40, '2015-08-29 00:00:00', '2015-08-29 10:20:25'),
+(7, 1, 20, 30, 1, 10, '2015-09-02 00:00:00', '2015-09-02 07:15:40'),
+(8, 2, 45, 40, 5, -25, '2015-09-02 00:00:00', '2015-09-02 07:15:41'),
+(9, 3, 45, 55, 2, 20, '2015-09-02 00:00:00', '2015-09-02 07:15:41'),
+(10, 4, 7, 10, 1, 3, '2015-09-02 00:00:00', '2015-09-02 07:15:41'),
+(11, 1, 20, 30, 1, 10, '2015-09-02 00:00:00', '2015-09-02 07:15:48'),
+(12, 2, 45, 40, 5, -25, '2015-09-02 00:00:00', '2015-09-02 07:15:48'),
+(13, 3, 45, 55, 2, 20, '2015-09-02 00:00:00', '2015-09-02 07:15:48'),
+(14, 4, 7, 10, 1, 3, '2015-09-02 00:00:00', '2015-09-02 07:15:48'),
+(15, 1, 20, 30, 1, 10, '2015-09-02 00:00:00', '2015-09-02 07:28:07'),
+(16, 2, 45, 40, 5, -25, '2015-09-02 00:00:00', '2015-09-02 07:28:07'),
+(17, 3, 45, 55, 2, 20, '2015-09-02 00:00:00', '2015-09-02 07:28:07'),
+(18, 4, 7, 10, 1, 3, '2015-09-02 00:00:00', '2015-09-02 07:28:07');
 
 -- --------------------------------------------------------
 
@@ -109,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `accounts_purchases` (
   `purchase_account` varchar(64) NOT NULL,
   `purchase_account_type` varchar(128) NOT NULL,
   `purchase_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accounts_purchases`
@@ -117,7 +202,10 @@ CREATE TABLE IF NOT EXISTS `accounts_purchases` (
 
 INSERT INTO `accounts_purchases` (`purchase_id`, `purchase_product`, `purchase_cost`, `purchase_quantity`, `purchase_date`, `purchase_account`, `purchase_account_type`, `purchase_timestamp`) VALUES
 (1, 'Chair', 250, 2, '2015-08-24 00:00:00', 'Expences', 'Fixed Expences', '2015-08-24 12:40:12'),
-(2, 'Chair', 250, 2, '2015-08-25 00:00:00', 'Expences', 'Fixed Expences', '2015-08-24 13:06:37');
+(2, 'Chair', 250, 2, '2015-08-25 00:00:00', 'Expences', 'Fixed Expences', '2015-08-24 13:06:37'),
+(3, '2', 45, 100, '2015-08-27 00:00:00', 'purchase', 'stock', '2015-08-27 13:09:37'),
+(4, '2', 45, 1200, '2015-08-27 00:00:00', 'purchase', 'stock', '2015-08-27 13:13:49'),
+(5, '4', 7, 2400, '2015-09-02 00:00:00', 'purchase', 'stock', '2015-09-02 05:01:01');
 
 -- --------------------------------------------------------
 
@@ -134,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `accounts_sales` (
   `sales_total` float NOT NULL,
   `sales_date` varchar(32) NOT NULL,
   `sales_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accounts_sales`
@@ -146,7 +234,24 @@ INSERT INTO `accounts_sales` (`sales_id`, `sales_product_id`, `sales_cost`, `sal
 (3, 1, 20.5, 25, 2, 50, '2015-08-25 00:00:00', '2015-08-28 11:39:34'),
 (4, 1, 20.5, 25, 2, 50, '2015-08-30 00:00:00', '2015-08-25 11:39:34'),
 (5, 1, 20.5, 25, 2, 50, '2015-08-28 00:00:00', '2015-08-30 11:39:34'),
-(6, 2, 20.5, 25, 2, 50, '2015-08-24 00:00:00', '2015-08-25 04:49:52');
+(6, 2, 20.5, 25, 2, 50, '2015-08-24 00:00:00', '2015-08-25 04:49:52'),
+(7, 1, 20, 30, 1, 30, '2015-08-29 00:00:00', '2015-08-29 10:20:25'),
+(8, 1, 20, 30, 2, 60, '2015-08-29 00:00:00', '2015-08-29 10:20:25'),
+(9, 2, 45, 40, 2, 80, '2015-08-29 00:00:00', '2015-08-29 10:20:25'),
+(10, 2, 45, 40, 3, 120, '2015-08-29 00:00:00', '2015-08-29 10:20:25'),
+(11, 3, 45, 55, 4, 220, '2015-08-29 00:00:00', '2015-08-29 10:20:25'),
+(12, 1, 20, 30, 1, 30, '2015-09-02 00:00:00', '2015-09-02 07:15:40'),
+(13, 2, 45, 40, 5, 200, '2015-09-02 00:00:00', '2015-09-02 07:15:41'),
+(14, 3, 45, 55, 2, 110, '2015-09-02 00:00:00', '2015-09-02 07:15:41'),
+(15, 4, 7, 10, 1, 10, '2015-09-02 00:00:00', '2015-09-02 07:15:41'),
+(16, 1, 20, 30, 1, 30, '2015-09-02 00:00:00', '2015-09-02 07:15:47'),
+(17, 2, 45, 40, 5, 200, '2015-09-02 00:00:00', '2015-09-02 07:15:48'),
+(18, 3, 45, 55, 2, 110, '2015-09-02 00:00:00', '2015-09-02 07:15:48'),
+(19, 4, 7, 10, 1, 10, '2015-09-02 00:00:00', '2015-09-02 07:15:48'),
+(20, 1, 20, 30, 1, 30, '2015-09-02 00:00:00', '2015-09-02 07:28:07'),
+(21, 2, 45, 40, 5, 200, '2015-09-02 00:00:00', '2015-09-02 07:28:07'),
+(22, 3, 45, 55, 2, 110, '2015-09-02 00:00:00', '2015-09-02 07:28:07'),
+(23, 4, 7, 10, 1, 10, '2015-09-02 00:00:00', '2015-09-02 07:28:07');
 
 -- --------------------------------------------------------
 
@@ -169,6 +274,23 @@ CREATE TABLE IF NOT EXISTS `account_reconcilation` (
 
 INSERT INTO `account_reconcilation` (`recon_id`, `recon_amount`, `recon_bank`, `recon_type`, `recon_date`, `recon_timestamp`) VALUES
 (1, '10000', '1', 'credit', '2015-08-24 00:00:00', '2015-08-25 11:34:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assets`
+--
+
+CREATE TABLE IF NOT EXISTS `assets` (
+  `assets_id` int(11) NOT NULL,
+  `assets_type` varchar(128) NOT NULL,
+  `assets_amount` varchar(32) NOT NULL,
+  `assets_payment_mode` varchar(32) NOT NULL,
+  `assets_bank` int(11) NOT NULL,
+  `assets_due_date` varchar(32) NOT NULL,
+  `assets_detail` text NOT NULL,
+  `assets_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -237,16 +359,30 @@ CREATE TABLE IF NOT EXISTS `bills` (
   `bill_amount` varchar(32) NOT NULL,
   `bill_type` varchar(32) NOT NULL,
   `bill_bankdetail` int(11) NOT NULL,
+  `bill_cheque` varchar(32) NOT NULL,
   `bill_timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bills`
 --
 
-INSERT INTO `bills` (`bill_id`, `bill_supid`, `bill_number`, `bill_duedate`, `bill_amount`, `bill_type`, `bill_bankdetail`, `bill_timestamp`) VALUES
-(1, 2, 'MCA-001-D15', '2015-08-30', '5000', 'cheque', 3, '2015-08-27 08:28:11'),
-(2, 1, 'MCA-001-D12', '2015-08-31', '20000', 'cash', 2, '2015-08-27 08:30:36');
+INSERT INTO `bills` (`bill_id`, `bill_supid`, `bill_number`, `bill_duedate`, `bill_amount`, `bill_type`, `bill_bankdetail`, `bill_cheque`, `bill_timestamp`) VALUES
+(1, 2, 'MCA-001-D15', '2015-08-30', '5000', 'cheque', 3, '', '2015-08-27 08:28:11'),
+(2, 1, 'MCA-001-D12', '2015-08-31', '20000', 'cash', 2, '', '2015-08-27 08:30:36'),
+(3, 1, 'xx1', '2015-08-27', '100', 'cheque', 1, '0000001', '2015-08-27 11:59:17'),
+(4, 1, 'xx2', '2015-08-27', '102', 'cheque', 1, '0000002', '2015-08-27 12:10:20'),
+(5, 1, 'xx2', '2015-08-27', '102', 'cheque', 1, '0000002', '2015-08-27 12:15:20'),
+(6, 1, 'xx2', '2015-08-27', '102', 'cheque', 1, '0000002', '2015-08-27 12:15:51'),
+(7, 1, 'xx2', '2015-08-27', '102', 'cheque', 1, '0000002', '2015-08-27 12:16:42'),
+(8, 1, 'xx2', '2015-08-27', '102', 'cheque', 1, '0000002', '2015-08-27 12:17:17'),
+(9, 1, 'xx2', '2015-08-27', '102', 'cheque', 1, '0000002', '2015-08-27 12:22:30'),
+(10, 1, 'xx2', '2015-08-27', '102', 'cheque', 1, '0000002', '2015-08-27 12:26:59'),
+(11, 1, 'xx2', '2015-08-27', '102', 'cheque', 1, '0000002', '2015-08-27 12:27:25'),
+(12, 1, 'xx2', '2015-08-27', '102', 'cheque', 1, '0000002', '2015-08-27 12:35:38'),
+(13, 2, 'MCA-001-D13', '2015-09-06', '500', 'cash', 2, '', '2015-08-29 07:01:21'),
+(14, 2, 'MCA-001-D14', '2015-08-31', '600', 'cheque', 2, '1234567890', '2015-08-29 07:01:58'),
+(15, 1, 'MCA-001-D14', '2015-09-02', '2000', 'cheque', 1, '1234567899', '2015-09-02 05:00:31');
 
 -- --------------------------------------------------------
 
@@ -289,16 +425,17 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `inv_quantity` int(11) NOT NULL,
   `inv_barcode` int(11) NOT NULL,
   `inv_ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `inventory`
 --
 
 INSERT INTO `inventory` (`inv_id`, `inv_name`, `inv_pid`, `inv_cost`, `inv_price`, `inv_quantity`, `inv_barcode`, `inv_ts`) VALUES
-(4, 'Pepsi Bottle 1Ltr', 3, '25', '30', 70, 159753825, '2015-08-15 10:08:07'),
-(5, 'Pepsi Bottle 250ml', 1, '20', '40', 50, 987654321, '2015-08-15 10:08:41'),
-(6, 'Pepsi Bottle 500ml', 2, '50', '55', 500, 1234567891, '2015-08-19 12:39:10');
+(4, 'Pepsi Bottle 1Ltr', 3, '50', '55', 70, 159753825, '2015-08-15 10:08:07'),
+(5, 'Pepsi Bottle 250ml', 1, '20', '35', 50, 987654321, '2015-08-15 10:08:41'),
+(6, 'Pepsi Bottle 500ml', 2, '40', '45', 500, 1234567891, '2015-08-19 12:39:10'),
+(7, 'Picasso Ball Pen Blue Color', 4, '7', '10', 200, 123456788, '2015-09-02 05:01:20');
 
 -- --------------------------------------------------------
 
@@ -343,18 +480,18 @@ CREATE TABLE IF NOT EXISTS `products` (
   `p_skucrate` int(11) NOT NULL,
   `p_skucarton` int(11) NOT NULL,
   `p_skubag` int(11) NOT NULL,
-  `p_bill_number` int(11) NOT NULL,
   `p_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`p_id`, `p_name`, `p_supplier`, `p_cost`, `p_price`, `p_gst`, `p_vat`, `p_barcode`, `p_volumetype`, `p_volumevalue`, `p_skucrate`, `p_skucarton`, `p_skubag`, `p_bill_number`, `p_datetime`) VALUES
-(1, 'Pepsi Bottle 250ml', 2, '25', '40', '10', '123', '987654321', 'piece', 'ml', 24, 1, 2, 1, '2015-08-12 05:00:29'),
-(2, 'Pepsi Bottle 500ml', 1, '45', '50', '10', '123', '1234567891', 'liter', 'Peace(s)', 12, 144, 864, 2, '2015-08-12 06:00:56'),
-(3, 'Pepsi Bottle 1Ltr', 2, '45', '55', '10', '123', '159753825', 'piece', 'Peace(s)', 6, 144, 864, 1, '2015-08-12 08:05:49');
+INSERT INTO `products` (`p_id`, `p_name`, `p_supplier`, `p_cost`, `p_price`, `p_gst`, `p_vat`, `p_barcode`, `p_volumetype`, `p_volumevalue`, `p_skucrate`, `p_skucarton`, `p_skubag`, `p_datetime`) VALUES
+(1, 'Pepsi Bottle 250ml', 2, '20', '39', '10', '123', '987654321', 'piece', 'ml', 24, 1, 2, '2015-08-12 05:00:29'),
+(2, 'Pepsi Bottle 500ml', 1, '45', '50', '10', '123', '1234567891', 'liter', 'Peace(s)', 12, 144, 864, '2015-08-12 06:00:56'),
+(3, 'Pepsi Bottle 1Ltr', 2, '45', '55', '10', '123', '159753825', 'piece', 'Peace(s)', 6, 144, 864, '2015-08-12 08:05:49'),
+(4, 'Picasso Ball Pen Blue Color', 1, '7', '10', '10', '123', '123456788', 'piece', '1', 144, 1728, 12, '2015-09-02 04:58:19');
 
 -- --------------------------------------------------------
 
@@ -370,7 +507,7 @@ CREATE TABLE IF NOT EXISTS `sale` (
   `sale_bill_number` varchar(128) NOT NULL,
   `sale_payment` varchar(32) NOT NULL,
   `sale_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sale`
@@ -428,7 +565,11 @@ INSERT INTO `sale` (`sale_id`, `sale_user_id`, `sale_shift_number`, `sale_termin
 (49, 3, '9', 13, 'Macro-QAR-1234', 'cash', '2015-08-22 07:19:28'),
 (50, 3, '9', 13, 'Macro-QAR-1234', 'cash', '2015-08-24 06:37:53'),
 (51, 3, '9', 13, 'Macro-QAR-1234', 'cash', '2015-08-24 06:38:26'),
-(52, 3, '9', 13, 'Macro-QAR-1234', 'cash', '2015-08-24 06:38:40');
+(52, 3, '9', 13, 'Macro-QAR-1234', 'cash', '2015-08-24 06:38:40'),
+(53, 3, '9', 13, 'Macro-QAR-1234', 'cash', '2015-08-29 10:20:25'),
+(54, 3, '9', 13, 'Macro-QAR-1235', 'credit', '2015-09-02 07:15:40'),
+(55, 3, '9', 13, 'Macro-QAR-1235', 'credit', '2015-09-02 07:15:47'),
+(56, 3, '9', 13, 'Macro-QAR-1235', 'cash', '2015-09-02 07:28:07');
 
 -- --------------------------------------------------------
 
@@ -443,7 +584,7 @@ CREATE TABLE IF NOT EXISTS `sale_product` (
   `salepro_product_quantity` int(11) NOT NULL,
   `salepro_product_price` int(11) NOT NULL,
   `salepro_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sale_product`
@@ -544,7 +685,24 @@ INSERT INTO `sale_product` (`salepro_id`, `salepro_sale_id`, `salepro_product_id
 (92, 49, 5, 1, 40, '2015-08-22 07:19:28'),
 (93, 49, 6, 2, 55, '2015-08-22 07:19:28'),
 (94, 49, 4, 2, 30, '2015-08-22 07:19:28'),
-(95, 49, 6, 1, 55, '2015-08-22 07:19:28');
+(95, 49, 6, 1, 55, '2015-08-22 07:19:28'),
+(96, 53, 1, 1, 30, '2015-08-29 10:20:25'),
+(97, 53, 1, 2, 30, '2015-08-29 10:20:25'),
+(98, 53, 2, 2, 40, '2015-08-29 10:20:25'),
+(99, 53, 2, 3, 40, '2015-08-29 10:20:25'),
+(100, 53, 3, 4, 55, '2015-08-29 10:20:25'),
+(101, 54, 1, 1, 30, '2015-09-02 07:15:40'),
+(102, 54, 2, 5, 40, '2015-09-02 07:15:40'),
+(103, 54, 3, 2, 55, '2015-09-02 07:15:41'),
+(104, 54, 4, 1, 10, '2015-09-02 07:15:41'),
+(105, 55, 1, 1, 30, '2015-09-02 07:15:47'),
+(106, 55, 2, 5, 40, '2015-09-02 07:15:48'),
+(107, 55, 3, 2, 55, '2015-09-02 07:15:48'),
+(108, 55, 4, 1, 10, '2015-09-02 07:15:48'),
+(109, 56, 1, 1, 30, '2015-09-02 07:28:07'),
+(110, 56, 2, 5, 40, '2015-09-02 07:28:07'),
+(111, 56, 3, 2, 55, '2015-09-02 07:28:07'),
+(112, 56, 4, 1, 10, '2015-09-02 07:28:07');
 
 -- --------------------------------------------------------
 
@@ -617,24 +775,38 @@ CREATE TABLE IF NOT EXISTS `warehouse` (
   `warehouse_price` int(11) NOT NULL,
   `warehouse_quantity` int(11) NOT NULL,
   `warehouse_barcode` text NOT NULL,
+  `warehouse_qtytype` varchar(32) NOT NULL,
+  `warehouse_sp_bill` varchar(64) NOT NULL,
   `warehouse_skutype` varchar(32) NOT NULL,
   `warehouse_skuvalue` varchar(32) NOT NULL,
   `warehouse_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `warehouse`
 --
 
-INSERT INTO `warehouse` (`warehouse_id`, `product_id`, `warehouse_cost`, `warehouse_price`, `warehouse_quantity`, `warehouse_barcode`, `warehouse_skutype`, `warehouse_skuvalue`, `warehouse_datetime`) VALUES
-(1, 1, 20, 39, 900, '987654321', 'bottle', 'ml', '2015-08-12 11:07:31'),
-(2, 3, 25, 30, 700, '159753825', '650', 'piece', '2015-08-12 11:12:02'),
-(3, 1, 25, 40, 200, '987654321', 'bottle', 'ml', '2015-08-17 04:24:08'),
-(4, 2, 45, 50, 500, '123456789123', 'bottle', 'ml', '2015-08-19 11:55:12');
+INSERT INTO `warehouse` (`warehouse_id`, `product_id`, `warehouse_cost`, `warehouse_price`, `warehouse_quantity`, `warehouse_barcode`, `warehouse_qtytype`, `warehouse_sp_bill`, `warehouse_skutype`, `warehouse_skuvalue`, `warehouse_datetime`) VALUES
+(1, 1, 20, 39, 900, '987654321', '', '', 'bottle', 'ml', '2015-08-12 11:07:31'),
+(2, 3, 25, 30, 700, '159753825', '', '', '650', 'piece', '2015-08-12 11:12:02'),
+(3, 1, 25, 40, 200, '987654321', '', '', 'bottle', 'ml', '2015-08-17 04:24:08'),
+(4, 2, 45, 55, 400, '123456789123', 'box', '2', 'bottle', 'ml', '2015-08-19 11:55:12'),
+(5, 2, 45, 50, 100, '1234567891', 'crate', '12', '', '', '2015-08-27 13:04:38'),
+(6, 2, 45, 50, 100, '1234567891', 'crate', '12', '', '', '2015-08-27 13:05:17'),
+(7, 2, 45, 50, 100, '1234567891', 'crate', '12', '', '', '2015-08-27 13:06:02'),
+(8, 2, 45, 50, 100, '1234567891', 'crate', '12', '', '', '2015-08-27 13:09:37'),
+(9, 2, 45, 50, 100, '1234567891', 'crate', '12', '', '', '2015-08-27 13:13:49'),
+(10, 4, 7, 10, 200, '123456788', 'bag', '15', '', '', '2015-09-02 05:01:01');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `accounts_capital`
+--
+ALTER TABLE `accounts_capital`
+  ADD PRIMARY KEY (`capital_id`);
 
 --
 -- Indexes for table `accounts_general_ledger`
@@ -671,6 +843,12 @@ ALTER TABLE `accounts_sales`
 --
 ALTER TABLE `account_reconcilation`
   ADD PRIMARY KEY (`recon_id`);
+
+--
+-- Indexes for table `assets`
+--
+ALTER TABLE `assets`
+  ADD PRIMARY KEY (`assets_id`);
 
 --
 -- Indexes for table `banks`
@@ -749,35 +927,45 @@ ALTER TABLE `warehouse`
 --
 
 --
+-- AUTO_INCREMENT for table `accounts_capital`
+--
+ALTER TABLE `accounts_capital`
+  MODIFY `capital_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `accounts_general_ledger`
 --
 ALTER TABLE `accounts_general_ledger`
-  MODIFY `gl_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `gl_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `accounts_payable_receviable`
 --
 ALTER TABLE `accounts_payable_receviable`
-  MODIFY `pr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `pr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `accounts_profitloss`
 --
 ALTER TABLE `accounts_profitloss`
-  MODIFY `pl_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `pl_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `accounts_purchases`
 --
 ALTER TABLE `accounts_purchases`
-  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `accounts_sales`
 --
 ALTER TABLE `accounts_sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `account_reconcilation`
 --
 ALTER TABLE `account_reconcilation`
   MODIFY `recon_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `assets`
+--
+ALTER TABLE `assets`
+  MODIFY `assets_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `banks`
 --
@@ -792,7 +980,7 @@ ALTER TABLE `banks_transection`
 -- AUTO_INCREMENT for table `bills`
 --
 ALTER TABLE `bills`
-  MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `discount`
 --
@@ -802,7 +990,7 @@ ALTER TABLE `discount`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `inv_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `offers`
 --
@@ -812,17 +1000,17 @@ ALTER TABLE `offers`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `sale`
 --
 ALTER TABLE `sale`
-  MODIFY `sale_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
+  MODIFY `sale_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=57;
 --
 -- AUTO_INCREMENT for table `sale_product`
 --
 ALTER TABLE `sale_product`
-  MODIFY `salepro_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=96;
+  MODIFY `salepro_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=113;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
@@ -837,7 +1025,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `warehouse`
 --
 ALTER TABLE `warehouse`
-  MODIFY `warehouse_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `warehouse_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

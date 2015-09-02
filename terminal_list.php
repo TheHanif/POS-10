@@ -21,7 +21,7 @@ if(isset($_POST['latestqty'])){
 	$total 	= $price * $qty; 
 	$total1 = number_format((float)$total, 2, '.', '');
 	$id = end(array_keys($_SESSION['terminal_list']));
-
+	/*
 	echo '<li class="col-md-12 nopadding product_list">
 		<div class="product" id="row_'.($count).'">
 		    <div class="col-md-1 nopadding alignCenter">'.($count+1).'</div>
@@ -37,6 +37,7 @@ if(isset($_POST['latestqty'])){
 		    <div class="clearfix"></div>
 		</div>
 	</li>';
+	*/
 }
 
 // Delete Product for Terminal List Item (Delete Button Function)

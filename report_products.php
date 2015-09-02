@@ -6,34 +6,34 @@
 	<div class="container">
 		<div class="row">
 			<?php 
-			$accounts = new accounts();
+			$product = new product();
 
 			if (isset($_POST['show_report'])) {	
-				$to_date = $_POST['to_date'];
-				$from_date = $_POST['from_date'];
-				$product_name = $_POST['product_name'];
+				$product_name 	= $_POST['product_name'];
+				$supplier_name	= $_POST['supplier_name'];
+				$product_place	= $_POST['product_place'];
 
 				if($_POST['product_name']){
-					$product_id = $_POST['product_name'];	
+					$product_name = $_POST['product_name'];	
 				} else {
-					$product_id = NULL;
+					$product_name = NULL;
 				}
 
-				if($_POST['to_date']){
-				$to_date = $_POST['to_date'];
-				$to_date = $accounts->_date('Y-m-d H:i:s', $to_date);	
+				if($_POST['supplier_name']){
+					$supplier_name = $_POST['supplier_name'];	
 				} else {
-					$to_date = NULL;
+					$supplier_name = NULL;
 				}
 
-				if($_POST['from_date']){
-					$from_date = $_POST['from_date'];
-					$from_date = $accounts->_date('Y-m-d H:i:s', $from_date);
+				if($_POST['product_place']){
+					$product_place = $_POST['product_place'];	
 				} else {
-					$from_date = NULL;	
+					$product_place = NULL;
 				}
-				$results = $accounts->get_sales_report($product_id, $to_date, $from_date);
-				// print_f($results);
+
+				
+				$results = $product->get_product_report($product_name, $supplier_name, $product_place);
+				print_f($results);
 			}
 			?>			
 		</div>
@@ -42,36 +42,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="tableHeading">
-				<p class="nomargin alignCenter"> Sales Report </p>
+				<p class="nomargin alignCenter"> Product Report </p>
 			</div>
 			<form class="form-horizontal dashboardForm"  action="" method="post">
 			<div class="col-md-3">	
 				<div class="form-group">
-					<label for="p_cost" class="col-sm-12">Start date: </label>
-					<div class="col-sm-12">
-						<div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd">
-		                    <input class="form-control" size="16" type="text" value="<?php echo (isset($_POST['to_date']))? $_POST['to_date'] : '' ?>">
-		                    <span class="input-group-addon" style="padding: 6px 10px 6px 30px;"><span class="glyphicon glyphicon-calendar"></span></span>
-		                </div>
-						<input type="hidden" id="dtp_input3" name="to_date" value="<?php echo (isset($_POST['to_date']))? $_POST['to_date'] : '' ?>" /><br/>
-					</div>
-				</div>
-			</div><!-- Col-md-6 Close -->
-			<div class="col-md-3">	
-				<div class="form-group">
-					<label for="p_name" class="col-sm-12">End Date: </label>
-					<div class="col-sm-12">
-						<div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-		                    <input class="form-control" size="16" type="text" value="<?php echo (isset($_POST['from_date']))? $_POST['from_date'] : '' ?>">
-		                    <span class="input-group-addon" style="padding: 6px 10px 6px 30px;"><span class="glyphicon glyphicon-calendar"></span></span>
-		                </div>
-						<input type="hidden" id="dtp_input2" name="from_date" value="<?php echo (isset($_POST['from_date']))? $_POST['from_date'] : '' ?>" /><br/>
-					</div>
-				</div>
-			</div><!-- Col-md-6 Close -->
-			<div class="col-md-3">	
-				<div class="form-group">
-					<label for="p_supplier" class="col-sm-12">Product Name: </label>
+					<label for="product_name" class="col-sm-12">Product Name: </label>
 					<?php 	$product = new product();
 							$all_product = $product->get_product(); 
 					?>
@@ -87,7 +63,39 @@
 						</select>
 					</div>
 				</div>
-			</div><!-- Col-md-6 Close -->
+			</div><!-- Col-md-3 Close -->
+			<div class="col-md-3">	
+				<div class="form-group">
+					<label for="supplier_name" class="col-sm-12">Supplier Name: </label>
+					<?php 	$suppliers = new supplier();
+							$all_suppliers = $suppliers->get_suppliers();
+					?>
+					<div class="col-sm-12">
+						<select name="supplier_name">
+							<option value="">Select Supplier</option>
+							<?php 
+							foreach ($all_suppliers as $supplier) { ?>
+								<option value="<?php echo $supplier->sup_id; ?>"><?php echo $supplier->sup_name; ?></option>
+							<?php
+							}
+							?>
+						</select>
+					</div>
+				</div>
+			</div><!-- Col-md-3 Close -->
+			<div class="col-md-3">	
+				<div class="form-group">
+					<label for="product_place" class="col-sm-12">Unit / Warehouse: </label>
+					<div class="col-sm-12">
+						<select name="product_place">
+							<option value="">Select Place</option>
+								<option value="warehouse" <?php if(isset($_POST['product_place']) && $_POST['product_place'] == 'warehouse'){echo 'selected=selected';}?>>Warehouse</option>
+								<option value="unit" <?php if(isset($_POST['product_place']) && $_POST['product_place'] == 'unit'){echo 'selected=selected';}?>>Unit</option>
+						</select>
+					</div>
+				</div>
+			</div><!-- Col-md-3 Close -->
+			
 			<div class="col-md-3">
 				<div class="form-group">
 					<label for="p_supplier" class="col-sm-12">&nbsp;</label>

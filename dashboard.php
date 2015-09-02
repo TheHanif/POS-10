@@ -6,10 +6,8 @@
 			<div class="tableHeading">
 				<p class="nomargin alignCenter">Dashboard</p>
 			</div>
-			<div class="col-md-12">	
-				<?php 
-				echo $_SESSION['user']->first_name;
-				?>
+			<div class="col-md-12" style="min-height:500px;">	
+				
 			</div>
 		<div><!-- Row Close -->
 	</div><!-- Container Close -->

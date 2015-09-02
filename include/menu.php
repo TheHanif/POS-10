@@ -77,6 +77,7 @@
 					<li><a href="add_capitals.php">Add Capitals</a></li>
 		          </ul>
 		        </li>
+		        <!--
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Purchases<span class="caret"></span></a>
 		          <ul class="dropdown-menu">
@@ -84,6 +85,7 @@
 					<li><a href="add_purchase.php">Add Purchase</a></li>
 		          </ul>
 		        </li>
+		    -->
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Banks<span class="caret"></span></a>
 		          <ul class="dropdown-menu">
@@ -96,12 +98,15 @@
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
 		          <ul class="dropdown-menu">
-		            <li><a href="sales_form.php">Sales Report</a></li>
+		            <li><a href="report_sales.php">Sales Report</a></li>
 					<li><a href="report_profitloss.php">Profit &amp; Loss Report</a></li>
 					<li><a href="report_acc_payable.php">Account Payable Report</a></li>
 					<li><a href="report_acc_receviable.php">Account Receviable Report</a></li>
-					<li><a href="#">Supplier Report</a></li>
+					<li><a href="report_assets.php">Assets Report</a></li>
+					<li><a href="report_capital.php">Capital Report</a></li>
 					<li><a href="#">Product Stock Report</a></li>
+					<!--<li><a href="report_products.php">Product Stock Report</a></li> -->
+					<li><a href="#">Supplier Report</a></li>
 					<li><a href="#">Product Expiry Report</a></li>
 					<li><a href="#">Sales Person</a></li>
 					<li><a href="#">Purchase Report</a></li>

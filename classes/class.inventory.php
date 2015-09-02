@@ -95,21 +95,14 @@ class inventory extends database
 			$this->inner_join('products', 'p', 'p.p_id = inventory.inv_pid');
 			$this->left_join('discount', 'd', 'd.discount_product_id = p_id');	
 		}
-
-
 		$this->from($this->table_name);
 		$result = $this->result();
-
-
-
 		 if($result->discount_mode == 'offer'){
-
 		 	$discount_id = $result->discount_id;
 		 	$this->left_join('products', 'p', 'p.p_id = offers.offer_product_id');
 		 	$this->where('offer_discount_id',$discount_id);
 			$this->from('offers');
 			$offer = $this->all_results();
-
 			$result->offer_products = $offer;
 		 }
 		$result = (array)$result;
@@ -117,58 +110,6 @@ class inventory extends database
 		$result = (object)$result;
 		
 		return $result;
-
-
-		 /*
-			$this->from('products');
-			$product_bar = $this->result();
-			$product_bar->p_id;
-			
-			$this->where('discount_product_id',$product_bar->p_id);
-			$this->from('discount');
-			$product_discount = $this->result();
-
-			$product_discount_mode = $product_discount->discount_mode;
-			//print_f($product_discount);
-			if($product_discount_mode == 'offer'){
-					echo 'Product in Offer';
-					$this->inner_join('products', 'p', 'p.p_id = inventory.inv_pid');
-					$this->left_join('discount', 'd', 'd.discount_product_id = p.p_id');
-				//	$this->where('d.discount_status',1);
-					$this->left_join('offers', 'o', 'o.offer_discount_id = d.discount_id');
-					$this->where('o.offer_status',1);
-					$this->where('inv_barcode',$barcode);
-			}
-			else if ($product_discount_mode == 'discount'){
-					echo 'Product in Discount';
-					$this->inner_join('products', 'p', 'p.p_id = inventory.inv_pid');
-					$this->left_join('discount', 'd', 'd.discount_product_id = p.p_id');
-					$this->where('d.discount_status',1);
-					$this->where('inventory.inv_barcode',$barcode);
-			}
-			else {
-				echo 'No Discount or Offer';
-				$this->inner_join('products', 'p', 'p.p_id = inventory.inv_pid');
-				$this->where('inv_barcode',$barcode);
-			}
-			*/
-		
-			/*
-			$this->inner_join('products', 'p', 'p.p_id = inventory.inv_pid');
-			$this->left_join('discount', 'd', 'd.discount_product_id = p.p_id');
-			$this->where('d.discount_status',1);
-			$this->left_join('offers', 'o', 'o.offer_discount_id = d.discount_id');
-			$this->where('o.offer_status',1);
-			$this->where('inv_barcode',$barcode);
-			*/
-			/*
-			$this->inner_join('products', 'p', 'p.p_id = inventory.inv_pid');
-			$this->left_join('discount', 'd', 'd.discount_product_id = p.p_id');
-			//$this->where('d.discount_status',1);
-			$this->where('inv_barcode',$barcode);
-			*/
-
 	} // end of get_product
-
 } // end of class
 ?>

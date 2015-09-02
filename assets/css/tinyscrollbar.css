@@ -7,7 +7,7 @@
 
 #scrollbar1 .viewport
 {
-    height: 300px;
+    height: 200px;
     overflow:hidden;
     position:relative;
  /*   background: #dedede; */

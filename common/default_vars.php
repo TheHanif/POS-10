@@ -21,7 +21,7 @@ $user_shift_number = 9;
 $user_terminal_point_number = 13;
 
 // Bill Number
-$bill_number = 'Macro-QAR-1234';
+$bill_number = 'Macro-QAR-1235';
 
 // Currency 
 $currency = 'Rs. ';

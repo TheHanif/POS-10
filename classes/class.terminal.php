@@ -64,6 +64,7 @@ class terminal extends database
 		if(isset($_SESSION['barcode_detail']->offer_products)){
 			$free_product = $_SESSION['barcode_detail']->offer_products;
 		}
+		/*
 		echo '<li class="col-md-12 nopadding product_list">
 			<div class="product" id="row_'.($count).'">
 			    <div class="col-md-1 nopadding alignCenter">'.($count+1).'</div>
@@ -87,6 +88,7 @@ class terminal extends database
 			    <div class="clearfix"></div>
 			</div>
 		</li>';
+		*/
 		return 'sucess';
 	}
 

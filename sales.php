@@ -16,8 +16,6 @@ $form['payment_mode'] = $_GET['payment_mode'];
 
 $sales = new sales();
 $results = $sales->sale_insert($form);
-print_f($results);
-die();
 if ($results) {
 //	echo 'Sucess';
 }else{

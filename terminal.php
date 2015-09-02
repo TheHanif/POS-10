@@ -18,9 +18,11 @@
 
             $(document).ready(function(){
                 var $scrollbar = $("#scrollbar1");
+                var $creditcard_active = 1;
                 $scrollbar.tinyscrollbar();
                 subtotalcalc();
-                $(".calculator input").prop('disabled', true);
+				$("#latestqty").prop('disabled', true);
+                //$(".calculator input").prop('disabled', true);
                 $calState = false;
 
                 // Add New Product with scan
@@ -103,31 +105,38 @@
 				  }
 				  // Hold Button
 				  else if(e.which == 72){
-				    alert('Press Hold');
 				    jQuery(function($) {    
 			        $.ajax( {           
 			            url : "old.php",
 			            type : "GET",
 			            success : function(data) {
-			                alert ("works!");
-			                }
-			            });
+			            }
+			          });
 			        });
-			        alert('Hold Function Complete');
+			        alert('Hold Complete');
 				  }
 				  // Switch Button
 				  else if(e.which == 83) {
-				    alert('Press Switch');
+				    // alert('Press Switch');
 				    jQuery(function($) {    
-			        $.ajax( {           
+			        $.ajax({           
 			            url : "old.php",
 			            type : "GET",
 			            success : function(data) {
-			                alert ("works!");
 			                }
 			            });
 			        });
 				    $('#switchModal').click();
+				    $(".holdSession").on('click', function(event) {
+			        	event.preventDefault();
+			        	var id = this.id;   
+			        	// alert(id); 
+			        	$.post('ajex.php', {'id': id, 'action': 'switch'}, function(data) {
+	                		console.log(data);
+	                		window.location.reload();
+						}); 
+	      			});
+	      			$("#myModal").fadeOut('400').hide();
 				  }
 				  // Edit Button
 				  else if(e.which == 69){
@@ -167,9 +176,20 @@
 				  }
 				  // Credit Button 
 				  else if(e.which == 67) {
-				  	alert('Press Credit');
+				  	// alert('Press Credit');
 				  	$calState = true;
-				  	$("#paymentMode").text('credit');
+				  	if($creditcard_active == 1){
+				  		$(".cardBtn button").css('background', '#199C04');
+				  		$("#paymentMode").text('credit');
+				  		$creditcard_active = 0;
+				  		
+				  	}else {
+				  		$creditcard_active = 0;
+				  		$(".cardBtn button").css('background', '#0165b0');
+				  		$("#paymentMode").text('cash');
+				  		$creditcard_active = 1;
+				  		
+				  	}
 				  }
 				  // Calculator Button 
 				  else if(e.which == 49 || e.which == 50 || e.which == 51 || e.which == 52 || e.which == 53 || e.which == 54 || e.which == 55 || e.which == 56 || e.which == 57 || e.which == 48 || e.which == 190) {
@@ -213,6 +233,17 @@
         </script> 
 </head>
 <body>
+	<?php 
+	if (!isset($_SESSION['faizan'])) {
+		$inventorty = new inventory();
+		$terminallist = new terminal();
+		$barcode = array (987654321, 1234567891, 159753825, 123456788);
+		foreach ($barcode as $value) {
+			$_SESSION['barcode'] = $value;
+			$_SESSION['barcode_detail'] = $inventorty->get_product($value);
+			$terminallist->add_item_list(1);
+		}
+	}?>
 	<!-- Payment Mode -->
 	<span id="paymentMode" style="display:none;">cash</span>
 
@@ -229,9 +260,8 @@
 	        if(isset($_SESSION['hold_session'])){
 				//print_f($_SESSION['hold_session'][3]);
 				foreach ($_SESSION['hold_session'] as $key => $value) {
-					echo $key .'</BR>';
-					//print_f($value);
-					//echo $value[$barcode]['quantity'];
+					echo '<a href="" class="holdSession" id="'.$key.'">'.$key.'</a></BR>';
+					// print_f($_SESSION['hold_session']);
 				}
 			}
 			else {
@@ -443,7 +473,7 @@
 					<button>cash<br/><span>(caps C)</span></button>
 				</div>
 				-->
-				<div class="col-md-6 nopadding">
+				<div class="col-md-6 nopadding cardBtn">
 					<button>card <span>(caps c)</span></button>
 				</div>
 

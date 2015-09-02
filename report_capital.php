@@ -11,14 +11,7 @@
 			if (isset($_POST['show_report'])) {	
 				$to_date = $_POST['to_date'];
 				$from_date = $_POST['from_date'];
-				$product_name = $_POST['product_name'];
-
-				if($_POST['product_name']){
-					$product_id = $_POST['product_name'];	
-				} else {
-					$product_id = NULL;
-				}
-
+				
 				if($_POST['to_date']){
 				$to_date = $_POST['to_date'];
 				$to_date = $accounts->_date('Y-m-d H:i:s', $to_date);	
@@ -32,7 +25,7 @@
 				} else {
 					$from_date = NULL;	
 				}
-				$results = $accounts->get_sales_report($product_id, $to_date, $from_date);
+				$results = $accounts->get_capital_report($to_date, $from_date);
 				// print_f($results);
 			}
 			?>			
@@ -42,10 +35,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="tableHeading">
-				<p class="nomargin alignCenter"> Sales Report </p>
+				<p class="nomargin alignCenter"> Capital Report </p>
 			</div>
 			<form class="form-horizontal dashboardForm"  action="" method="post">
-			<div class="col-md-3">	
+			<div class="col-md-5">	
 				<div class="form-group">
 					<label for="p_cost" class="col-sm-12">Start date: </label>
 					<div class="col-sm-12">
@@ -57,7 +50,7 @@
 					</div>
 				</div>
 			</div><!-- Col-md-6 Close -->
-			<div class="col-md-3">	
+			<div class="col-md-5">	
 				<div class="form-group">
 					<label for="p_name" class="col-sm-12">End Date: </label>
 					<div class="col-sm-12">
@@ -69,26 +62,7 @@
 					</div>
 				</div>
 			</div><!-- Col-md-6 Close -->
-			<div class="col-md-3">	
-				<div class="form-group">
-					<label for="p_supplier" class="col-sm-12">Product Name: </label>
-					<?php 	$product = new product();
-							$all_product = $product->get_product(); 
-					?>
-					<div class="col-sm-12">
-						<select name="product_name">
-							<option value="">Select Product</option>
-							<?php 
-							foreach($all_product as $product){ ?>					
-									<option value="<?php echo $product->p_id; ?>"<?php if(isset($_POST['product_name'] ) && $_POST['product_name'] == $product->p_id){echo 'selected=selected';}?>><?php echo $product->p_name; ?></option>
-							<?php
-							}
-							?>
-						</select>
-					</div>
-				</div>
-			</div><!-- Col-md-6 Close -->
-			<div class="col-md-3">
+			<div class="col-md-2">
 				<div class="form-group">
 					<label for="p_supplier" class="col-sm-12">&nbsp;</label>
 					<div class="col-sm-12">
@@ -104,17 +78,14 @@
 		<div class="row">
 			<?php 
 			if (isset($results)) { 
-			// print_f($results);
 			?>
 			<table border="1" cellpadding="5" cellspacing="0" class="table table-hover tableView">
 				<tr>
 					<th>No.</th>
-					<th>Product</th>
-					<th>Date</th>
-					<th>Cost</th>
-					<th>Price</th>
-					<th>Quantity</th>
-					<th>Total</th>
+					<th>Capital Name</th>
+					<th>Capital Detail</th>
+					<th>Capital Amount</th>
+					<th>Capital Date</th>
 				</tr>
 					<?php 
 					$count = 1;
@@ -122,12 +93,10 @@
 					foreach ($results as $key => $value){ ?>
 				<tr>
 					<td><?php echo $count; ?></td>
-					<td><?php echo $value->p_name; ?></td>
-					<td><?php echo $accounts->_date($format = 'd-m-Y', $value->sales_date); ?></td>
-					<td><?php echo $value->sales_cost; ?></td>
-					<td><?php echo $value->sales_price; ?></td>
-					<td><?php echo $value->sales_quantity; ?></td>
-					<td><?php echo $total = $value->sales_total; ?></td>
+					<td><?php echo $value->capital_name; ?></td>
+					<td><?php echo $value->capital_detail; ?></td>
+					<td><?php echo $total = $value->capital_amount; ?></td>
+					<td><?php echo $accounts->_date($format = 'd-m-Y', $value->capital_date); ?></td>
 				</tr>
 					<?php
 					$count++;
@@ -135,8 +104,9 @@
 					}
 					?>
 				<tr>
-					<td colspan="6" style="text-align:right;"><strong>Total Sales: </strong></td>
+					<td colspan="3" style="text-align:right;"><strong>Total Sales: </strong></td>
 					<td><strong><?php echo $sub_total; ?></strong></td>
+					<td></td>
 				</tr>
 			</table>
 			<?php }
