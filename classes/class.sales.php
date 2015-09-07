@@ -20,6 +20,7 @@ class sales extends database
 		$data['sale_terminal_number'] = $form['user_terminal_point_number'];
 		$data['sale_payment'] = $form['payment_mode'];
 		$data['sale_user_id'] = $form['user_id'];
+		$data['sale_date'] = $this->_date('Y-m-d H:i:s', date('d-m-Y'));
 	
 		// Sales Insert in Sale Table
 		$this->insert($this->table_name, $data);
@@ -43,6 +44,7 @@ class sales extends database
 				$product['salepro_product_id']			= $val_array['p_id'];
 				$product['salepro_product_price'] 		= $val_array['p_price']-$val_array['discount_amount'];
 				$product['salepro_product_quantity']	= $val_array['quantity'];
+				$product['salepro_date']				= $this->_date('Y-m-d H:i:s', date('d-m-Y'));
 				$product['salepro_sale_id']				= $sale_id;
 				
 				$this->insert('sale_product', $product);
@@ -75,6 +77,25 @@ class sales extends database
 			return false;
 		}
 	} // end of insert
+
+
+	public function get_sale_person_report($person_name = NULL, $date = NULL)
+	{
+		if (isset($person_name)) {
+			$this->where('sale.sale_user_id',$person_name);
+		}
+		if (!empty($date)) {
+			$this->where('sale.sale_date',$date);
+		}
+
+		$this->select(array('SUM(salepro_product_quantity * salepro_product_price)' => 'bill_amount'));
+		$this->force_select_all();
+		$this->inner_join('sale_product', 'sp', 'sp.salepro_sale_id = sale.sale_id');
+		$this->inner_join('open_balance', 'ob', 'ob.ob_user = sale.sale_user_id');
+		$this->group_by('sp.salepro_sale_id');
+		$this->from($this->table_name);
+		return $this->all_results();
+	} // end of get_supplier_report
 
 } // end of class
 

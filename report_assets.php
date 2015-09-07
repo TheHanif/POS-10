@@ -116,8 +116,8 @@
 				<tr>
 					<th>No.</th>
 					<th>Assets Type</th>
-					<th>Assets Amount</th>
 					<th>Assets Detail</th>
+					<th>Assets Amount</th>
 					<th>Assets Date</th>
 				</tr>
 					<?php 

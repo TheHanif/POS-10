@@ -12,6 +12,7 @@ class supplier extends database
 
 		$this->table_name = 'supplier';
 		$this->bills = 'bills';
+		$this->payable_receviable = 'accounts_payable_receviable';
 	}
 
 

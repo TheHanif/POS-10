@@ -190,4 +190,11 @@
 	 document.getElementById('content1').appendChild(div);
 	} 
 </script>
+
+<script type="text/javascript">
+	$("#searchIcon").on('click', function(event) {
+    	event.preventDefault();
+    	$("#searchBox").toggle();
+    });
+</script>
 <?php require_once 'footer.php'; ?>

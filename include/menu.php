@@ -17,6 +17,13 @@
 		      <ul class="nav navbar-nav">
 		        <li><a href="dashboard.php"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span></a></li>
 		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Daily Balance<span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+		          	<li><a href="view_open_balance.php">View Opening Balance</a></li>
+					<li><a href="add_opening_balance.php">Add Opening Balance</a></li>
+		          </ul>
+		        </li>
+		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Warehouse<span class="caret"></span></a>
 		          <ul class="dropdown-menu">
 		          	<li><a href="view_warehouse.php">View Warehouse Products</a></li>
@@ -104,11 +111,9 @@
 					<li><a href="report_acc_receviable.php">Account Receviable Report</a></li>
 					<li><a href="report_assets.php">Assets Report</a></li>
 					<li><a href="report_capital.php">Capital Report</a></li>
-					<li><a href="#">Product Stock Report</a></li>
-					<!--<li><a href="report_products.php">Product Stock Report</a></li> -->
-					<li><a href="#">Supplier Report</a></li>
+					<li><a href="report_products.php">Product Stock Report</a></li>
+					<li><a href="report_sale_person.php">Sales Person Report</a></li>
 					<li><a href="#">Product Expiry Report</a></li>
-					<li><a href="#">Sales Person</a></li>
 					<li><a href="#">Purchase Report</a></li>
 					<li><a href="#">Account Report</a></li>
 		          </ul>

@@ -18,6 +18,7 @@
 	<!--Attched Bootstrap JS  -->
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap-datetimepicker.js"></script>
+	<script src="assets/js/chosen.jquery.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -43,6 +44,11 @@
 			    }
 			    
 			})
+
+			$(function() {
+		    	$('.chosen-select').chosen();
+		        $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+		    });
  		});
 	</script>
 </body>

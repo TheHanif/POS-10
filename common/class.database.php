@@ -113,7 +113,7 @@ class Database {
             $this->_select = array();
             $this->_data = array();
             $this->_joins = array();
-            $this->_groupt_by = '';
+            $this->_group_by = '';
 
 
             // $this->_query = '';

@@ -59,7 +59,7 @@
 			</div><!-- Col-md-6 Close -->
 			<div class="col-md-3">	
 				<div class="form-group">
-					<label for="p_name" class="col-sm-12">End Date: </label>
+					<label for="p_name" class="col-sm-12">Date: </label>
 					<div class="col-sm-12">
 						<div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
 		                    <input class="form-control" size="16" type="text" value="<?php echo (isset($_POST['from_date']))? $_POST['from_date'] : '' ?>">

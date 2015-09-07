@@ -10,6 +10,9 @@ class product extends database
 	{
 		parent::__construct();
 		$this->table_name = 'products';
+		$this->warehouse = 'warehouse';
+		$this->inventory = 'inventory';
+		$this->sale_product = 'sale_product';
 	}
 
 	public function pro_insert($form)
@@ -98,24 +101,56 @@ class product extends database
 		return $this->all_results();
 	} // end of get
 
-	public function get_product_report($product_name = NULL, $supplier_name = NULL, $product_place = NULL)
+	public function get_product_stock($product_name = NULL, $product_place = NULL)
 	{
-		return $product_place;
-		/*
+		
+		if($product_place == 'warehouse'){
+			if (isset($product_name)) {
+				$this->where('product_id',$product_name);
+			}
+			$this->force_select_all();
+			$this->inner_join('products', 'p', 'p.p_id = warehouse.product_id');
+			$this->select(array('SUM(warehouse.warehouse_quantity)' => 'qty'));
+			$this->group_by('warehouse.product_id');
+			$this->from($this->warehouse);
+			return $this->all_results();
+		}
+		else {
+			if (isset($product_name)) {
+				$this->where('inv_pid',$product_name);
+			}
+			$this->force_select_all();
+			$this->inner_join('products', 'p', 'p.p_id = inventory.inv_pid');
+			$this->select(array('SUM(inventory.inv_quantity)' => 'qty'));
+			$this->group_by('inventory.inv_pid');
+			$this->from($this->inventory);
+			return $this->all_results();
+		}
+	} // end of get_product_stock
+
+	public function get_product_inventory_stock($product_name = NULL)
+	{
 		if (isset($product_name)) {
-			$this->where('p_id',$product_name);
-		}
-
-		if (isset($supplier_name)) {
-			$this->where('p_supplier',$supplier_name);
-		}
-		
-		
-		$this->from($this->table_name);
-
-		return $this->all_results(); */
-	} // end of get
+				$this->where('inv_pid',$product_name);
+			}
+			// $this->force_select_all();
+			$this->select(array('SUM(inventory.inv_quantity)' => 'inventory_quantity'));
+			$this->group_by('inventory.inv_pid');
+			$this->from($this->inventory);
+			return $this->all_results();
+	} // end of get_product_inventory_stock
 	
+	public function get_product_sale_stock($product_name = NULL)
+	{
+		if (isset($product_name)) {
+				$this->where('salepro_product_id',$product_name);
+			}
+			// $this->force_select_all();
+			$this->select(array('SUM(sale_product.salepro_product_quantity)' => 'salepro_pro_quantity'));
+			$this->group_by('sale_product.salepro_product_id');
+			$this->from($this->sale_product);
+			return $this->all_results();
+	} // end of get_product_sale_stock
 	
 
 } // end of class

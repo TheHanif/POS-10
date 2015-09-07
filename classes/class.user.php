@@ -143,5 +143,15 @@ class user extends database
 		session_destroy();
 	}
 
+	public function get_sales_user($ID = NULL)
+	{
+		if (isset($ID)) {
+			$this->where('id',$ID);
+		}
+		$this->where('designation','sale_person');
+		$this->from($this->table_name);
+		return $this->all_results();
+	} // end of get_sales_user
+
 }
  ?>
