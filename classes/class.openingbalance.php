@@ -47,6 +47,19 @@ class openingbalance extends database
 		return $this->all_results();
 	} // end of get_opening_balance
 
+	public function get_opening_date_balance($person_name = NULL, $balance_date = NULL)
+	{
+		if (isset($person_name)) {
+			$this->where('ob_user', $person_name);
+		}
+
+		if (isset($balance_date)) {
+			$this->where('ob_date', $balance_date);
+		}
+		$this->from($this->table_name);
+		return $this->all_results();
+	} // end of get_opening_balance
+
 
 } // end of class
 

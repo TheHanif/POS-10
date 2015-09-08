@@ -74,8 +74,8 @@
 				<div class="form-group">
 					<label for="p_supplier" class="col-sm-12">Assets Type: </label>
 					<div class="col-sm-12">
-						<select name="assets_type">
-							<option value="">Select Assets Type</option>
+						<select name="assets_type" data-placeholder="Select Assets Type" class="chosen-select" tabindex="4">
+							<option value=""></option>
 							<optgroup label="Current Assets">
 								<?php foreach ($current_assets as $key => $value) { ?>
 									<option value="<?php echo $key; ?>" <?php if(isset($ID) && $key == $assets_result[0]->assets_type){echo 'selected=selected';}?>><?php echo $value; ?></option>

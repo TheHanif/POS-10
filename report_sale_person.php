@@ -7,6 +7,7 @@
 		<div class="row">
 			<?php 
 			$sales = new sales();
+			$openingbalance = new openingbalance();
 
 			if (isset($_POST['show_report'])) {	
 				
@@ -23,8 +24,10 @@
 					$date = NULL;
 				}
 
+				$balance_date = $sales->_date('Y-m-d', $date);
 				$results = $sales->get_sale_person_report($person_name, $date);
-				//print_f($results);
+				$results_balance = $openingbalance->get_opening_date_balance($person_name, $balance_date);
+				// print_f($results);
 			}
 			?>			
 		</div>
@@ -85,8 +88,12 @@
 		<div class="row">
 			<?php 
 			if (isset($results)) { 
+				if(isset($results_balance[0]->ob_balance)){
 			?>
-			<div class="col-md-12"><h3>Opening Balance: <?php echo $opening_balance = $results[0]->ob_balance;?></h3></div>
+					<div class="col-md-12"><h3>Opening Balance: <?php echo $opening_balance = $results_balance[0]->ob_balance;?></h3></div>
+			<?php 
+				}
+			?>
 			<table border="1" cellpadding="5" cellspacing="0" class="table table-hover tableView">
 				<tr>
 					<th>No.</th>
@@ -111,7 +118,7 @@
 					<td><?php echo $value->sale_bill_number; ?></td>
 					<td><?php echo $value->sale_payment; ?></td>
 					<td><?php echo $total = $value->bill_amount; ?></td>
-					<td><?php echo $value->salepro_date; ?></td>
+					<td><?php echo $sales->_date('d-m-Y', $value->salepro_date )?></td>
 				</tr>
 					<?php
 					$count++;
@@ -128,6 +135,9 @@
 					<td><?php echo $total_daily_sale; ?></td>
 					<td></td>
 				</tr>
+				<?php 
+				if(isset($results_balance[0]->ob_balance)){
+				?>
 				<tr>
 					<td></td>
 					<td></td>
@@ -138,6 +148,9 @@
 					<td><?php echo $opening_balance; ?></td>
 					<td></td>
 				</tr>
+				<?php 
+				}
+				?>
 				<tr>
 					<td></td>
 					<td></td>
@@ -145,7 +158,18 @@
 					<td></td>
 					<td></td>
 					<td>Final Received Amount:</td>
+					<?php 
+						if(isset($results_balance[0]->ob_balance)){
+					?>
 					<td><?php echo $total_daily_sale+$opening_balance; ?></td>
+					<?php 
+						}
+						else {
+					?>
+					<td><?php echo $total_daily_sale; ?></td>
+					<?php
+						}
+					?>
 					<td></td>
 				</tr>
 			</table>

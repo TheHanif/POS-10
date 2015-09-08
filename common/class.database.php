@@ -25,6 +25,7 @@ class Database {
     public $_data = array();
     public $_joins = array();
     public $_group_by;
+    public $_order_by;
     public $_force_select_all = false;
 
     /**
@@ -54,6 +55,9 @@ class Database {
 
 
 
+     function order_by($column, $sort = 'ASC'){
+        $this->_order_by = $column .' '. $sort;
+    } // end order_by
 
 
     function group_by($column){
@@ -114,6 +118,8 @@ class Database {
             $this->_data = array();
             $this->_joins = array();
             $this->_group_by = '';
+            $this->_limit = null;
+            $this->_order_by = '';
 
 
             // $this->_query = '';
@@ -319,15 +325,16 @@ class Database {
             $query .= ' GROUP BY ' . $this->_group_by;
         }
 
+        if(!empty($this->_order_by)){
+            $query .= ' ORDER BY ' . $this->_order_by;
+        }
+
         if ($this->_action != 'INSERT' && !empty($this->_limit)) {
             $query .= ' LIMIT ' . $this->_limit;
         }
-
-
-
+    
         $this->query($query);
     }
-
     /**
      * Build query to update data
      * @return string query part to use in build_query

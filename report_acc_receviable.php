@@ -76,8 +76,8 @@
 							$bank_result = $bank->get_banks();
 					?>
 					<div class="col-sm-12">
-						<select name="bank_name">
-							<option value="">Select Bank Branch</option>
+						<select name="bank_name" data-placeholder="Choose a Bank Name" class="chosen-select" tabindex="4">
+							<option value=""></option>
 							<?php foreach ($bank_result as $bank) { ?>
 						    	<option value="<?php echo $bank->bank_id; ?>" <?php if(isset($_POST['bank_name']) && $_POST['bank_name'] == $bank->bank_id){echo 'selected=selected';}?>><?php echo $bank->bank_name .' - '. $bank->bank_branch; ?></option>
 						    <?php

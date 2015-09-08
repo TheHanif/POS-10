@@ -18,7 +18,10 @@
 	<!--Attched Bootstrap JS  -->
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/bootstrap-datetimepicker.js"></script>
+	<!-- Select Search JS -->
 	<script src="assets/js/chosen.jquery.js"></script>
+	<!-- Chart JS -->
+	<script src="assets/js/chart.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function(){

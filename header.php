@@ -10,8 +10,9 @@
 	<link href="assets/css/bootstrap-theme.css" rel="stylesheet">
 	<link href="assets/css/bootstrap-datetimepicker.css" rel="stylesheet">
 	<link href="assets/css/style.css" rel="stylesheet">
+	<!-- Select Search Option -->
 	<link href="assets/css/selectCSS.css" rel="stylesheet">
-
+	
 	<script type="text/javascript" src="assets/js/jquery.latest.js"></script>
 	<script type="text/javascript">
  	$(document).ready(function(){

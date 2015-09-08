@@ -76,8 +76,8 @@
 							$all_product = $product->get_product(); 
 					?>
 					<div class="col-sm-12">
-						<select name="product_name">
-							<option value="">Select Product</option>
+						<select name="product_name" data-placeholder="Choose a Product Name" class="chosen-select" tabindex="4">
+							<option value=""></option>
 							<?php 
 							foreach($all_product as $product){ ?>					
 									<option value="<?php echo $product->p_id; ?>"<?php if(isset($_POST['product_name'] ) && $_POST['product_name'] == $product->p_id){echo 'selected=selected';}?>><?php echo $product->p_name; ?></option>

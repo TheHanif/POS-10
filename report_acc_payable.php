@@ -76,8 +76,8 @@
 							$all_suppliers = $suppliers->get_suppliers();
 					?>
 					<div class="col-sm-12">
-						<select name="supplier_name">
-							<option value="">Select Product</option>
+						<select name="supplier_name" data-placeholder="Choose a Supplier Name" class="chosen-select" tabindex="4">
+							<option value=""></option>
 							<?php 
 							foreach($all_suppliers as $suppliers){ ?>					
 									<option value="<?php echo $suppliers->sup_id; ?>" <?php if(isset($_POST['supplier_name']) && $_POST['supplier_name'] == $suppliers->sup_id){echo 'selected=selected';}?>><?php echo $suppliers->sup_name; ?></option>

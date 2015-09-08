@@ -89,13 +89,38 @@ class sales extends database
 		}
 
 		$this->select(array('SUM(salepro_product_quantity * salepro_product_price)' => 'bill_amount'));
-		$this->force_select_all();
 		$this->inner_join('sale_product', 'sp', 'sp.salepro_sale_id = sale.sale_id');
-		$this->inner_join('open_balance', 'ob', 'ob.ob_user = sale.sale_user_id');
+		// $this->inner_join('open_balance', 'ob', 'ob.ob_user = sale.sale_user_id');
+		$this->force_select_all();
 		$this->group_by('sp.salepro_sale_id');
 		$this->from($this->table_name);
 		return $this->all_results();
 	} // end of get_supplier_report
+
+	public function get_all_sale()
+	{
+		$this->from($this->table_name);
+		return $this->all_results();
+	} // end of get_all_sale
+
+	public function get_sale_invoice_report($invoice_number = NULL)
+	{
+		if (isset($invoice_number)) {
+			$this->where('sale.sale_id',$invoice_number);
+		}
+		
+		// $this->select(array('SUM(salepro_product_quantity * salepro_product_price)' => 'bill_amount'));
+		$this->inner_join('sale_product', 'sp', 'sp.salepro_sale_id = sale.sale_id');
+		$this->left_join('products', 'p', 'p.p_id = sp.salepro_product_id');
+		$this->left_join('discount', 'd', 'd.discount_product_id = sp.salepro_product_id');
+		//$this->force_select_all();
+		//$this->group_by('sp.salepro_sale_id');
+		$this->from($this->table_name);
+		return $this->all_results();
+	} // end of get_sale_invoice_report
+
+	
+
 
 } // end of class
 

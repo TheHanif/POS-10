@@ -83,3 +83,7 @@ footer p { margin: 5px 0px; }
 
 .add-btn		{ background: url(../images/add-div.png) no-repeat scroll 11px 6px #333333 !important; color: #fff; padding: 16px !important; float:left; width:45px; }
 .minus-btn		{ background: url(../images/minus-div.png) no-repeat scroll 11px 6px #333333 !important; color:#fff; padding: 16px !important; float:left; width:45px; }
+
+.userChart	{ position: absolute; top: 50px; right: 50px; }
+.userChart li { margin-bottom: 5px; }
+.userChart li span { width: 20px; height: 20px; float: left; margin-right: 5px; border-radius: 3px; }

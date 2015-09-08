@@ -113,6 +113,7 @@
 					<li><a href="report_capital.php">Capital Report</a></li>
 					<li><a href="report_products.php">Product Stock Report</a></li>
 					<li><a href="report_sale_person.php">Sales Person Report</a></li>
+					<li><a href="report_sale_invoice.php">Invoice Number Report</a></li>
 					<li><a href="#">Product Expiry Report</a></li>
 					<li><a href="#">Purchase Report</a></li>
 					<li><a href="#">Account Report</a></li>
