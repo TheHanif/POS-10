@@ -81,7 +81,6 @@ class accounts extends database
 		if (!empty($to_date)) {
 			$this->where('sales_date',$to_date);
 		}
-
 		$this->inner_join('products', 'p', 'p.p_id = accounts_sales.sales_product_id');
 		$this->from($this->sales);
 		return $this->all_results();

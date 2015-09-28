@@ -14,13 +14,21 @@ class openingbalance extends database
 
 	public function insert_open_balance($form)
 	{
+		$person_name = $form['person_name'];
+		$balance_date = $form['from_date'];
+		$result = $this->get_opening_date_balance($person_name, $balance_date);
+		if($result){
+			return 'Already Balance';
+		}
+		else {
+			$data = array();
+			$data['ob_user'] = $form['person_name'];
+			$data['ob_date'] = $form['from_date'];
+			$data['ob_balance'] = $form['amount'];
+			$this->insert($this->table_name, $data);
+			return $this->row_count();
+		}
 		
-		$data = array();
-		$data['ob_user'] = $form['person_name'];
-		$data['ob_date'] = $form['from_date'];
-		$data['ob_balance'] = $form['amount'];
-		$this->insert($this->table_name, $data);
-		return $this->row_count();
 
 	} // end of insert
 

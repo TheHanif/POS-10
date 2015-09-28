@@ -13,6 +13,7 @@ class product extends database
 		$this->warehouse = 'warehouse';
 		$this->inventory = 'inventory';
 		$this->sale_product = 'sale_product';
+		$this->product_category = 'product_categories';
 	}
 
 	public function pro_insert($form)
@@ -26,22 +27,25 @@ class product extends database
 		$data['p_gst'] = $form['p_gst'];
 		$data['p_vat'] = $form['p_vat'];
 		$data['p_barcode'] = $form['p_barcode'];
+		$data['p_category'] = $form['p_category'];
 		$data['p_volumetype'] = $form['p_volumetype'];
 		$data['p_volumevalue'] = $form['p_volumevalue'];
 		$data['p_skucrate'] = $form['p_skucrate'];
+		$data['p_return'] = $form['p_return'];
+		$data['p_return_detail'] = $form['p_return_detail'];
+		$data['p_exchange'] = $form['p_exchange'];
+		$data['p_exchange_detail'] = $form['p_exchange_detail'];
 		$data['p_skucarton'] = $form['p_skucarton'];
 		$data['p_skubag'] = $form['p_skubag'];
+		$data['p_skubox'] = $form['p_skubox'];
 
 		$this->insert($this->table_name, $data);
-
 		return $this->row_count();
-
 	} // end of insert
 
 	public function pro_update($form, $id)
 	{
 		$data = array();
-
 		$data['p_name'] = $form['p_name'];
 		$data['p_supplier'] = $form['p_supplier'];
 		$data['p_cost'] = $form['p_cost'];
@@ -49,18 +53,20 @@ class product extends database
 		$data['p_gst'] = $form['p_gst'];
 		$data['p_vat'] = $form['p_vat'];
 		$data['p_barcode'] = $form['p_barcode'];
+		$data['p_category'] = $form['p_category'];
 		$data['p_volumetype'] = $form['p_volumetype'];
 		$data['p_volumevalue'] = $form['p_volumevalue'];
+		$data['p_return'] = $form['p_return'];
+		$data['p_return_detail'] = $form['p_return_detail'];
+		$data['p_exchange'] = $form['p_exchange'];
+		$data['p_exchange_detail'] = $form['p_exchange_detail'];
 		$data['p_skucrate'] = $form['p_skucrate'];
 		$data['p_skucarton'] = $form['p_skucarton'];
 		$data['p_skubag'] = $form['p_skubag'];
-
+		$data['p_skubox'] = $form['p_skubox'];
 		$this->where('p_id', $id);
-
 		$this->update($this->table_name, $data);
-
 		return $this->row_count();
-
 	} // end of update
 
 	public function pro_get($ID)
@@ -152,6 +158,33 @@ class product extends database
 			return $this->all_results();
 	} // end of get_product_sale_stock
 	
+
+
+	public function pro_category_insert($form)
+	{
+		$data = array();
+		$data['pc_name'] = $form['p_name'];
+		$this->insert($this->product_category, $data);
+		return $this->row_count();
+	} // end of pro_category_insert
+
+	public function pro_category_update($form, $id)
+	{
+		$data = array();
+		$data['pc_name'] = $form['p_name'];
+		$this->where('pc_id', $id);
+		$this->update($this->product_category, $data);
+		return $this->row_count();
+	} // end of pro_category_insert
+
+	public function get_product_category($ID = NULL)
+	{
+		if (isset($ID)) {
+			$this->where('pc_id',$ID);
+		}
+		$this->from($this->product_category);
+		return $this->all_results();
+	} // end of get
 
 } // end of class
 

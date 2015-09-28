@@ -1,12 +1,20 @@
 <?php require_once 'header.php'; ?>
-<section>
-	<hr/>
-	<div class="container">
-		<div class="row">
-			<div class="tableHeading">
-				<p class="nomargin alignCenter"><?php echo (isset($_GET['id']))? 'Update' : 'Add' ?> Inventory</p>
-			</div>
-			
+<!-- BEGIN PAGE CONTENT -->
+<div class="page-content">
+	<div class="container-fluid">
+		<!-- Begin breadcrumb -->
+		<ol class="breadcrumb success rsaquo">
+			<li><a href="dashboard.php"><i class="fa fa-home"></i></a></li>
+			<li><a href="inventory.php">Inventory</a></li>
+			<li class="active">Add Inventory Products</li>
+		</ol>
+
+		<div class="panel panel-info">
+		  <div class="panel-heading">
+			<h3><?php echo (isset($_GET['id']))? 'Update' : 'Add' ?> Inventory Products</h3>
+		  </div>
+		  <div class="panel-body">
+			<!-- BEGIN DATA TABLE -->
 			<?php 
 			$product = new product();
 			$all_product = $product->get_product();
@@ -25,88 +33,95 @@
 					$results = $inventory->inv_insert($_POST);
 				}
 				if ($results) {
-					echo '<div class="alert alert-success" role="alert"> Add Inventory Sucessfully </div>';
+					echo '<div class="alert alert-success alert-block fade in alert-dismissable">
+				  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				  <strong>Add Inventory Sucessfully</strong> in Unit
+				</div>';
 				}else{
-					echo '<div class="alert alert-danger" role="alert"> Error </div>';
+					echo '<div class="alert alert-danger alert-block fade in alert-dismissable">
+				  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				  <strong>Error</strong>
+				</div>';
 				}
 			}
 			if (isset($ID)) {
 				$inventory_result = $inventory->inv_get($ID);
 			}
 			?>
-			<?php 
-			if (!isset($ID)){
-			?>
-			<div class="col-md-12">	
-				<div class="form-group">
-					<label for="itemname" class="col-md-3 control-label">Select Ware House Product Name: </label>
-					<div class="col-md-9" style="margin-bottom:15px;">
-						<select name="product_id" id="warehouse_product_id">
-							<?php 
-							foreach ($all_product_warehouse as $warehouse_product) { 
-							?>
-								<option value="<?php echo $warehouse_product->product_id; ?>"><?php echo $warehouse_product->p_name; ?></option>
-							<?php
-							}
-							?>
-						</select>
-					</div>
-				</div>
-			</div>
+		
+			<div class="the-box noborder">
+				<form id="ExampleBootstrapValidationForm" method="post" action="" class="form-horizontal">
+					<fieldset>
+						<?php 
+						if (!isset($ID)){
+						?>
+						<legend>Select Ware House Product Name: </legend>
+						
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Select Ware House Product Name: </label>
+							<div class="col-lg-5">
+								<select data-placeholder="Choose a Product..." class="form-control chosen-select" tabindex="2" name="product_id" id="warehouse_product_id">
+								<option value="Empty">&nbsp;</option>
+									<?php 
+									foreach ($all_product_warehouse as $warehouse_product) { 
+									?>
+										<option value="<?php echo $warehouse_product->product_id; ?>"><?php echo $warehouse_product->p_name; ?></option>
+									<?php
+									}
+									?>
+								</select>
+							</div>
+						</div>
+						<?php 
+						}
+						?>
+						<legend>Product Detail:</legend>
+						
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Item Name</label>
+							<div class="col-lg-5">
+								<input type="text" name="inv_name" id="inv_name" value="<?php echo (isset($ID))? $inventory_result->p_name : '' ?>" class="form-control" />
+								<input type="hidden" name="inv_id" id="inv_id" value="<?php echo (isset($ID))? $inventory_result->inv_pid : '' ?>">
+							</div>
+						</div>
 
-			<div class="clear"></div>
-			<?php 
-			}
-			?>
-			<form class="form-horizontal dashboardForm"  action="add_inventory.php<?php echo isset($ID)? ('?id='.$ID) : ''; ?> " method="post">
-			<div class="col-md-6">	
-				<div class="form-group">
-					<label for="itemname" class="col-sm-3 control-label">Item Name: </label>
-					<div class="col-sm-8">
-						<input type="text" name="inv_name" id="inv_name" value="<?php echo (isset($ID))? $inventory_result->p_name : '' ?>" class="form-control"  />
-						<input type="hidden" name="inv_id" id="inv_id" value="<?php echo (isset($ID))? $inventory_result->inv_pid : '' ?>">
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Barcode</label>
+							<div class="col-lg-5">
+								<input type="text" name="inv_barcode" id="inv_barcode" value="<?php echo (isset($ID))? $inventory_result->inv_barcode : '' ?>" class="form-control" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Price</label>
+							<div class="col-lg-5">
+								<input type="text" name="inv_price" id="inv_price" value="<?php echo (isset($ID))? $inventory_result->inv_price : '' ?>" class="form-control" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Cost</label>
+							<div class="col-lg-5">
+								<input type="text" name="inv_cost" id="inv_cost" value="<?php echo (isset($ID))? $inventory_result->inv_cost : '' ?>"  class="form-control" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Quantity</label>
+							<div class="col-lg-5">
+								<input type="text" name="inv_quantity" id="inv_quantity" value="<?php echo (isset($ID))? $inventory_result->inv_quantity : '' ?>" class="form-control" required>
+							</div>
+						</div>
+
+					</fieldset>
+
+					<div class="form-group">
+						<div class="col-lg-9 col-lg-offset-3">
+							<button type="submit" class="btn btn-success btn-perspective btn-lg"  name="add_inventory"><?php echo (isset($_GET['id']))? 'Update' : 'Add' ?> Product in Unit</button>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="clear"></div>
-			<div class="col-md-6">	
-				<div class="form-group">
-					<label for="fname" class="col-sm-3 control-label">Cost: </label>
-					<div class="col-sm-8">
-						<input type="text" name="inv_cost" id="inv_cost" value="<?php echo (isset($ID))? $inventory_result->inv_cost : '' ?>"  class="form-control" required>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="email" class="col-sm-3 control-label">Quantity: </label>
-					<div class="col-sm-8">
-						<input type="text" name="inv_quantity" id="inv_quantity" value="<?php echo (isset($ID))? $inventory_result->inv_quantity : '' ?>" class="form-control" required>
-					</div>
-				</div>
-			</div><!-- Col-md-6 Close -->
-			<div class="col-md-6">	
-				<div class="form-group">
-				    <label for="lname" class="col-sm-3 control-label">Price: </label>
-					<div class="col-sm-8">
-						<input type="text" name="inv_price" id="inv_price" value="<?php echo (isset($ID))? $inventory_result->inv_price : '' ?>" class="form-control" required>
-					</div>
-				</div>
-				<div class="form-group">
-				    <label for="lname" class="col-sm-3 control-label">Barcode: </label>
-					<div class="col-sm-8">
-						<input type="text" name="inv_barcode" id="inv_barcode" value="<?php echo (isset($ID))? $inventory_result->inv_barcode : '' ?>" class="form-control" required>
-					</div>
-				</div>
-			</div><!-- Col-md-6 Close -->
-			<div class="col-md-6">
-				<div class="form-group">
-					<label class="col-sm-3 control-label"></label>
-					<div class="col-sm-8">
-						<button type="submit" class="btn submitBtn" name="add_inventory"><?php echo (isset($_GET['id']))? 'Update' : 'Add' ?> Inventory</button>
-					</div>
-			  	</div>
-			</div>
-			</form>
-		</div><!-- Row Close -->
-	</div><!-- Container Close -->
-</section>
+				</form>
+			</div><!-- /.the-box -->
+		</div>		</div>
+	</div><!-- /.container-fluid -->
 <?php require_once 'footer.php'; ?>

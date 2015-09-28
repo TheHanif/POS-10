@@ -1,50 +1,66 @@
 <?php require_once 'header.php'; ?>
-<section>
-	<hr/>
-	<div class="container">
-		<div class="row">
-			<div class="tableHeading">
-				<p class="nomargin alignCenter">View Inventory</p>
+<!-- BEGIN PAGE CONTENT -->
+<div class="page-content">
+	<div class="container-fluid">
+		<!-- Begin breadcrumb -->
+		<ol class="breadcrumb success rsaquo">
+			<li><a href="dashboard.php"><i class="fa fa-home"></i></a></li>
+			<li><a href="inventory.php">Inventory</a></li>
+			<li class="active">Manage Inventory</li>
+		</ol>
+		<!-- End breadcrumb -->
+		
+		<div class="panel panel-info">
+		  <div class="panel-heading">
+			<div class="right-content">
+				<a href="add_inventory.php"><button class="btn btn-success btn-perspective btn-lg pull-right">ADD NEW ITEM</button></a>
 			</div>
-			<div class="col-md-12">	
+			<h3>Manage Inventory</h3>
+		  </div>
+		  <div class="panel-body">
+			<!-- BEGIN DATA TABLE -->
+			<div class="the-box">
+				<div class="table-responsive">
 				<?php 
 				$inventory = new inventory();
 				$results = $inventory->get_int();
 				if ($results) {
 				?>
-				<table border="1" cellpadding="5" cellspacing="0" class="table table-hover tableView">
-					<tr>
-						<th>Product ID</th>
-						<th>Product Name</th>
-						<th>Product Cost</th>
-						<th>Product Price</th>
-						<th>Product Quantity</th>
-						<th>Product Barcode</th>
-						<th>Product Date</th>
-						<th>Action</th>
-					</tr>
+				<table class="table table-striped table-hover" id="datatable-example">
+					<thead class="the-box dark full">
+						<tr>
+							<th>Product Name</th>
+							<th>Product Cost</th>
+							<th>Product Price</th>
+							<th>Product Quantity</th>
+							<th>Product Barcode</th>
+							<th>Product Date</th>
+						</tr>
+					</thead>
+					<tbody>
 						<?php 
 						foreach($results as $res){
 						echo '<tr>';
-						echo '<td>'. $res->inv_id .'</td>';
-						echo '<td>'. $res->p_name .'</td>';
+						echo '<td><a href="add_inventory.php?id='.$res->inv_id.'">'. $res->p_name .'</a></td>';
 						echo '<td>'. $res->inv_cost.'</td>';
 						echo '<td>'. $res->inv_price .'</td>';
 						echo '<td>'. $res->inv_quantity .'</td>';
-						echo '<td>'. $res->inv_barcode .'</td>';
+						echo '<td><span class="label label-info">'. $res->inv_barcode .'</span></td>';
 						echo '<td>'. $res->inv_ts .'</td>';
-						echo '<td><a href="add_inventory.php?id='.$res->inv_id.'"><span class="glyphicon glyphicon-pencil"></span></a></td>';
 						echo '</tr>';
 						}
 						?>
+					</tbody>
 				</table>
 				<?php
 				}else{
-					echo 'Error';
+					echo 'No Product Available in Inventory';
 				} 
 				?>
-			</div>
-		<div><!-- Row Close -->
-	</div><!-- Container Close -->
-</section>
+				</div><!-- /.table-responsive -->
+			</div><!-- /.the-box .default -->
+			<!-- END DATA TABLE -->
+		  </div><!-- /.panel-body -->
+	</div><!-- /.container-fluid -->
+</div>
 <?php require_once 'footer.php'; ?>

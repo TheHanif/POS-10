@@ -2,19 +2,48 @@
 // Capabilities
 $capabilities = array();
 
-$capabilities['sales_page'] = 'Sales page';
-$capabilities['view_inventory'] = 'View Inventroy';
-$capabilities['add_inventory'] = 'Add Inventroy';
-$capabilities['add_user'] = 'Add User';
-
+$capabilities['opening_balance'] = 'Opening Balance';
+$capabilities['view_warehouse_products'] = 'View Warehouse Products';
+$capabilities['add_warehouse_products'] = 'Add Warehouse Products';
+$capabilities['view_inventory_products'] = 'View Inventory Products';
+$capabilities['add_inventory_products'] = 'Add Inventory Products';
+$capabilities['manage_users'] = 'Manage Users';
+$capabilities['add_users'] = 'Add Users';
+$capabilities['view_products'] = 'View Products';
+$capabilities['add_products'] = 'Add Products';
+$capabilities['view_supplier'] = 'View Supplier';
+$capabilities['add_supplier'] = 'Add Supplier';
+$capabilities['add_supplier_bill'] = 'Add Supplier Bill';
+$capabilities['view_discount'] = 'View Discount';
+$capabilities['add_discount'] = 'Add Discount';
+$capabilities['view_offer'] = 'View Offer';
+$capabilities['add_offer'] = 'Add Offer';
+$capabilities['account_payable'] = 'Account Payable';
+$capabilities['account_receviable'] = 'Account Receviable';
+$capabilities['view_assets'] = 'View Assets';
+$capabilities['add_assets'] = 'Add Assets';
+$capabilities['view_capital'] = 'View Capital';
+$capabilities['add_capital'] = 'Add Capital';
+$capabilities['view_bank'] = 'View Bank';
+$capabilities['add_bank'] = 'Add Bank';
+$capabilities['add_bank_transection'] = 'Add Bank Transection';
+$capabilities['sale_report'] = 'Sales Report';
+$capabilities['profit_report'] = 'Profit & Loss Report';
+$capabilities['acc_payable_report'] = 'Account Payable Report';
+$capabilities['acc_receviable_report'] = 'Account Receviable Report';
+$capabilities['assets_report'] = 'Assets Report';
+$capabilities['capital_report'] = 'Capital Report';
+$capabilities['product_stock_report'] = 'Product Stock Report';
+$capabilities['sale_person_report'] = 'Sale Person Report';
+$capabilities['invoice_number_report'] = 'Invoice Number Report';
 
 
 // Designation
-$designation = array();
+$designations = array();
 
-$designation['sales_person'] = 'Sale Person';
-$designation['depart_incharge'] = 'Depart Incharge';
-$designation['manager'] = 'Manager';
+$designations['sales_person'] = 'Sale Person';
+$designations['depart_incharge'] = 'Depart Incharge';
+$designations['manager'] = 'Manager';
 
 // User Login Detail
 $user_shift_number = 9;

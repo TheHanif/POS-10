@@ -1,49 +1,65 @@
 <?php require_once 'header.php'; ?>
-<section>
-	<hr/>
-	<div class="container">
-		<div class="row">
-			<div class="tableHeading">
-				<p class="nomargin alignCenter">View User</p>
+<!-- BEGIN PAGE CONTENT -->
+<div class="page-content">
+	<div class="container-fluid">
+		<!-- Begin breadcrumb -->
+		<ol class="breadcrumb success rsaquo">
+			<li><a href="dashboard.php"><i class="fa fa-home"></i></a></li>
+			<li><a href="users.php">Users</a></li>
+			<li class="active">Manage Users</li>
+		</ol>
+		<!-- End breadcrumb -->
+		
+		<div class="panel panel-info">
+		  <div class="panel-heading">
+			<div class="right-content">
+				<a href="add_user.php"><button class="btn btn-success btn-perspective btn-lg pull-right">ADD NEW USER</button></a>
 			</div>
-			<div class="col-md-12">	
-				<?php 
-				$user = new user();
-				$results = $user->get_users();
-				if ($results) {
-				?>
-				<table border="1" cellpadding="0" cellspacing="0" class="table table-hover tableView">
-					<tr>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>User Name</th>
-						<th>Email</th>
-						<th>Designation</th>
-						<th>Mobile</th>
-						<th>Action</th>
-					</tr>
-						<?php 
-						foreach($results as $res){
-						$designation = $res->designation;
-						echo '<tr>';
-						echo '<td>'. $res->fname .'</td>';
-						echo '<td>'. $res->lname .'</td>';
-						echo '<td>'. $res->login .'</td>';
-						echo '<td>'. $res->email.'</td>';
-						echo '<td style="text-transform: capitalize;">'. str_replace("_"," ","$designation") .'</td>';
-						echo '<td>'. $res->mobile .'</td>';
-						echo '<td class="alignCenter"><a href="add_user.php?id='.$res->id.'"><span class="glyphicon glyphicon-pencil"></span></a></td>';
-						echo '</tr>';
-						}
-						?>
-				</table>
-				<?php
-				}else{
-					echo 'Error';
-				} 
-				?>
-			</div>
-		<div><!-- Row Close -->
-	</div><!-- Container Close -->
-</section>
+			<h3>Manage Users</h3>
+		  </div>
+		  <div class="panel-body">
+			<!-- BEGIN DATA TABLE -->
+			<div class="the-box">
+				<div class="table-responsive">
+					<?php 
+					$user = new user();
+					$results = $user->get_users();
+					if ($results) {
+					?>
+					<table class="table table-striped table-hover" id="datatable-example">
+						<thead class="the-box dark full">
+							<tr>
+								<th>Full Name</th>
+								<th>User Name</th>
+								<th>Email</th>
+								<th>Designation</th>
+								<th>Mobile</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php 
+							foreach($results as $res){
+							$designation = $res->designation;
+							echo '<tr>';
+							echo '<td><a href="add_user.php?id='.$res->id.'">'. $res->fname .' '.$res->lname .'</a></td>';
+							echo '<td>'. $res->login .'</td>';
+							echo '<td>'. $res->email.'</td>';
+							echo '<td style="text-transform: capitalize;"><span class="label label-success">'. str_replace("_"," ","$designation") .'</span></td>';
+							echo '<td>'. $res->mobile .'</td>';
+							echo '</tr>';
+							}
+							?>
+						</tbody>
+					</table>
+					<?php
+					}else{
+						echo 'No User Available';
+					} 
+					?>
+					</div><!-- /.table-responsive -->
+			</div><!-- /.the-box .default -->
+			<!-- END DATA TABLE -->
+		  </div><!-- /.panel-body -->
+	</div><!-- /.container-fluid -->
+</div>
 <?php require_once 'footer.php'; ?>

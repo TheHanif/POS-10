@@ -83,6 +83,10 @@ class user extends database
 			$data['designation'] = $add_user['designation'];
 		//	$data['photo'] = $add_user['photo'];
 			$data['capabilities'] = json_encode($add_user['capabilities']);
+			if ($_FILES){
+				move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/'.$_FILES['photo']['name']);
+	            $data['photo'] = $_FILES['photo']['name'];
+	        }
 			$this->insert($this->table_name, $data);
 			return '<div class="alert alert-success" role="alert">'.$username.' User Register Sucessfully...</div>';
 		}
@@ -110,6 +114,13 @@ class user extends database
 		//	$data['photo'] = $add_user['photo'];
 			$data['capabilities'] = json_encode($add_user['capabilities']);
 		
+		if ($_FILES){
+			move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/'.$_FILES['photo']['name']);
+            $data['photo'] = $_FILES['photo']['name'];
+        }else {
+        	echo $data['photo'] = $data['photo1'];
+        }
+
 		$this->where('id', $id);
 
 		$this->update($this->table_name, $data);
@@ -148,7 +159,7 @@ class user extends database
 		if (isset($ID)) {
 			$this->where('id',$ID);
 		}
-		$this->where('designation','sale_person');
+		$this->where('designation','sales_person');
 		$this->from($this->table_name);
 		return $this->all_results();
 	} // end of get_sales_user

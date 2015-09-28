@@ -55,7 +55,7 @@ class dashboard extends database
 		$this->force_select_all();
 		$this->group_by('sp.salepro_sale_id');
 		$this->order_by('sp.salepro_sale_id', 'DESC');
-		$this->from($this->table_sale, '0,6');
+		$this->from($this->table_sale, '0,50');
 		return $this->all_results();
 	} // end of get_latest_sale_person
 	

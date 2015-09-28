@@ -1,0 +1,89 @@
+.mainPanel	{ min-height: 350px; }
+thead 		{ font-weight: bold;}
+/* #scrollbar1 .overview ul li { min-height: 30px; border-bottom: 1px solid #ccc; padding: 5px 0px; margin-bottom: 10px;}; */
+.bold { font-weight: bold !important; }
+form {margin-bottom: 77px; }
+
+
+.userHead	{background: #2f323b; color: #d7d8dc; padding: 15px 0px; text-transform: uppercase; border-bottom: 1px solid #fff; }
+.userHead p { margin: 0px; font-size: 13px; }
+.userHead span { background: #c2c2c2; color: #2f323b; padding: 5px 25px; border-radius: 50px; min-width: 50px !important; }
+.userHead ul li { border-right: 1px solid #ccc; }
+.userHead ul li:last-child { border-right: none; }
+.compHead	{background-color: #0165b0; color: #fff; padding: 5px 25px; text-transform: uppercase; margin-bottom: 10px; }
+.compHead p { margin: 7px auto 0px; font-size: 13px; }
+.compHead span { background: #fff; color: #2f323b; padding: 5px 25px; border-radius: 50px; }
+.compHead input { width: 100px; background-color: transparent; border: none; margin: 0px; }
+
+.latestScan	{ background: #ebebeb; border: 1px solid #c2c2c2; border-radius: 10px; padding: 15px; border-left: 15px solid #d3d3d3; margin-bottom: 15px; min-height: 109px; }
+.latestScan h1 { margin: 0px; font-size: 20px; text-transform: uppercase; font-weight: 600; }
+.latestScan p { margin: 0px; font-size: 16px; }
+.latestQty input { border: 1px solid #000; color: #000; text-align: center; font-size: 18px; font-weight: 600; }
+
+.productTable { border: 1px solid #c2c2c2; padding: 0px; border-radius: 10px; }
+.headingTable { background: #2f323b; color: #fff; margin: 0px; padding: 12px 0px; text-align: center; font-size: 15px; border-top-left-radius:10px; border-top-right-radius:10px; }
+.headingTable li { border-right: 1px solid #ccc; }
+.headingTable .noborderRight { border-right: 0px !important; }
+.overview .product { background: #0165b0; color: #fff; padding: 5px 0px; font-size: 12px; border-bottom: 1px solid #fff; }
+.overview .product input { margin: 0px; color: #000; padding: 0px; text-align: center; width: 50px; }
+.overview .productoffer { background: #c1c1c1; color: #000; padding: 5px 0px; font-size: 12px; border-bottom: 2px solid #fff; }
+.overview li { margin-bottom: 2px; }
+.viewport	{ overflow: scroll !important; }
+
+.subTotal	{ background: #ebebeb; border: 1px solid #c2c2c2; border-radius: 10px; padding:10px 0px; margin-bottom: 15px; }
+.subTotal ul li { padding: 5px 0px; border-bottom: 1px solid #C2C2C2; }
+.subTotal ul li:last-child { border-bottom: none; }
+.subtotalInput { margin: 0px !important; height: 15px !important; text-align: right; }
+.subTotal .bgdark { background: #cbcbcb; font-weight: bold; }
+
+.finalBill	{ margin-bottom: 15px; }
+.finalBill h1 { text-transform: uppercase; color: #000; font-weight: bold; }
+.finalBill .finalAmount { background: #c4151c; border: 1px solid #000; padding: 15px; color: #fff; font-size: 35px; border-radius: 10px; }
+
+.terminalControl button { width: 100%; margin: 0px 2px; border-radius: 7px; color: #fff; border: 2px solid #fff; padding: 10px; text-transform: uppercase; background:#0165b0; }
+.terminalControl button span { font-weight: bold; }
+.bgcheckoutBtn	{ background: #1f1f21 !important; }
+.calculator button { width: 100%; margin: 0px 2px; border-radius: 7px; color: #fff; border: 2px solid #fff; padding: 10px; text-transform: uppercase; background: transparent;  background-image:url('../images/calc_btn.png'); width: 85px; height: 75px; font-size: 30px; font-weight: bold; color: #000; }
+.calculator button span { font-weight: bold; }
+.calculator .zeroBtn { background-image:url('../images/calc_btn2.png') !important; width: 175px; height: 75px;  }
+.calculator .clearBtn { background-image:url('../images/calc_btn1.png') !important; width: 85px; height: 150px;  }
+.calculator input { width: 89%; min-height: 35px; font-size: 32px; border: 1px solid #333; border-radius: 7px; margin: 5px; text-align: right; padding: 5px 15px; }
+
+.footer { background: #2f323b; color: #fff; padding: 10px 0px; }
+.footer p { margin-top: 10px; }
+.footer .flogo { padding-top: 7px; float: right; padding-right: 30px; }
+
+
+
+/* View User Page CSS */
+.tableView, .tableView a { color: #000 !important; text-align: center !important; }
+.tableView tr th { background-color: #9e9e9e; text-align: center; font-weight: bold;  }
+.tableView tr td, .tableView tr th { border-top: 1px solid #6e6e6e !important; border-right: 1px solid #6e6e6e; border-left: 1px solid #6e6e6e; border-bottom: 1px solid #6e6e6e; }
+.tableHeading { width: 250px; margin-top: -38px; margin-bottom: 50px; background-color: #ccc; padding: 5px 10px; font-size: 16px; border-radius: 5px; text-align: center; border: 1px solid #6E6E6E; margin-left: 15px; }
+
+header 			{ background-color: #2f323b; color:#fff; margin-bottom: 30px; padding: 10px 0px; }
+header .logo	{ margin: 5px 0px; }
+header .userDetail { text-align: right;}
+header .userDetail img { float: left; margin-left: 15px;  }
+header .userDetail p { text-align: right; margin: 0px; }
+header .userDetail span { text-align: right; font-size: 12px; font-style: italic; text-transform: capitalize; }
+header .logoutBtn	{ padding-top: 10px; }
+header .settingBtn	{ padding-top: 10px; }
+
+footer	{ background-color: #2f323b; padding: 10px; color: #fff; /* position: fixed; bottom: 0px; */ width: 100%;  }
+footer p { margin: 5px 0px; }
+
+/* Form CSS */
+.dashboardForm input { background-color: #FFF; border: 1px solid #cccccc; height: 20px; margin-bottom: 10px; }
+.dashboardForm .dateTime { height: 34px; width: 106%; }
+.dashboardForm .submitBtn { background: #333; color: #fff; font-weight: normal; padding: 7px 50px !important; } 
+.dashboardForm input[type='file']{ background-color: transparent; border: none; margin-top: 7px; }
+
+
+
+.add-btn		{ background: url(../images/add-div.png) no-repeat scroll 11px 6px #333333 !important; color: #fff; padding: 16px !important; float:left; width:45px; }
+.minus-btn		{ background: url(../images/minus-div.png) no-repeat scroll 11px 6px #333333 !important; color:#fff; padding: 16px !important; float:left; width:45px; }
+
+.userChart	{ position: absolute; top: 50px; right: 50px; }
+.userChart li { margin-bottom: 5px; }
+.userChart li span { width: 20px; height: 20px; float: left; margin-right: 5px; border-radius: 3px; }

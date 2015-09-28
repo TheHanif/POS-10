@@ -1,14 +1,19 @@
 <?php require_once 'header.php'; ?>
+<!-- BEGIN PAGE CONTENT -->
+<div class="page-content">
+	<div class="container-fluid">
+		<!-- Begin breadcrumb -->
+		<ol class="breadcrumb success rsaquo">
+			<li><a href="dashboard.php"><i class="fa fa-home"></i></a></li>
+			<li><a href="suppliers.php">Suppliers</a></li>
+			<li class="active">Add Supplier Bill</li>
+		</ol>
 
-
-<section>
-	<hr/>
-	<div class="container">
-		<div class="row">
-			<div class="tableHeading">
-				<p class="nomargin alignCenter"><?php echo (isset($_GET['id']))? 'Update' : 'Add' ?> Purchase</p>
-			</div>
-			
+		<div class="panel panel-info">
+		  <div class="panel-heading">
+			<h3><?php echo (isset($_GET['id']))? 'Update' : 'Add' ?> Supplier Bill</h3>
+		  </div>
+		  <div class="panel-body">
 			<?php 
 			$suppliers = new supplier();
 			$all_suppliers = $suppliers->get_suppliers();
@@ -64,103 +69,91 @@
 				}
 			}
 			?>
+			<div class="the-box noborder">
+				<form id="ExampleBootstrapValidationForm" method="post" action="" class="form-horizontal">
+					<fieldset>
+						<legend>Bill Detail:</legend>
+						
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Supplier Name</label>
+							<div class="col-lg-5">
+								<select data-placeholder="Choose a Supplier..." class="form-control chosen-select" tabindex="2" name="supplier_id" id="supplier_id">
+								<option value="Empty">&nbsp;</option>
+									<?php 
+									foreach ($all_suppliers as $supplier) { ?>
+									<option value="<?php echo $supplier->sup_id; ?>"><?php echo $supplier->sup_name; ?></option>
+									<?php
+									}
+									?>
+								</select>
+							</div>
+						</div>
 
-			<form class="form-horizontal dashboardForm"  action="" method="post">
-			<div class="col-md-6">	
-				<div class="form-group">
-					<label for="supplier_id" class="col-sm-3 control-label">Supplier Name: </label>
-					<div class="col-sm-8" style="margin-top:7px;">
-						<select name="supplier_id">
-							<?php 
-							foreach ($all_suppliers as $supplier) { ?>
-							<option value="<?php echo $supplier->sup_id; ?>"><?php echo $supplier->sup_name; ?></option>
-							<?php
-							}
-							?>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">	
-				<div class="form-group">
-					<label for="bill_number" class="col-sm-4 control-label">Bill Number: </label>
-					<div class="col-sm-7">
-						<input type="text" name="bill_number" value="" class="form-control" required>
-					</div>
-				</div>
-			</div>
-			<div class="clear"></div>
-			<div class="col-md-6">	
-				<div class="form-group">
-					<label for="due_date" class="col-sm-3 control-label">Due Date: </label>
-					<div class="col-sm-8">
-						<div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="due_date" data-link-format="yyyy-mm-dd">
-		                    <input class="form-control" size="16" type="text" value="">
-		                    <span class="input-group-addon" style="padding: 6px 10px 6px 30px;"><span class="glyphicon glyphicon-calendar"></span></span>
-		                </div>
-						<input type="hidden" id="due_date" name="due_date" value="" /><br/>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">	
-				<div class="form-group">
-					<label for="bill_amount" class="col-sm-4 control-label">Amount: </label>
-					<div class="col-sm-7">
-						<input type="text" name="bill_amount" value="" class="form-control" required>
-					</div>
-				</div>
-			</div>
-			<div class="clear"></div>
-			<div class="col-md-6">	
-				<div class="form-group">
-					<label for="payment_type" class="col-sm-3 control-label">Payment Type: </label>
-					<div class="col-sm-8" style="margin-top:7px;">
-						<select name="payment_type" id="payment_mode">
-							<option value="cash">Cash</option>
-							<option value="cheque">Cheque</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div id="payment_cheque_mode" style="display:none;">
-			<div class="col-md-6">	
-				<div class="form-group">
-					<label for="bank_detail" class="col-sm-4 control-label">Bank Detail: </label>
-					<div class="col-sm-7" style="margin-top:7px;">
-						<select name="bank_detail">
-							<option value="">Select Bank Branch</option>
-							<?php foreach ($bank_result as $bank) { ?>
-						    	<option value="<?php echo $bank->bank_id; ?>"><?php echo $bank->bank_name .' - '. $bank->bank_branch; ?></option>
-						    <?php
-								}
-							?>
-						</select>
-					</div>
-				</div>
-			</div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Bill Number</label>
+							<div class="col-lg-5">
+								<input type="text" name="bill_number" value="" class="form-control" required>
+							</div>
+						</div>
 
-			<div class="col-md-6 col-md-offset-6">	
-				<div class="form-group">
-					<label for="bank_detail" class="col-sm-4 control-label">Cheque #: </label>
-					<div class="col-sm-7" style="margin-top:7px;">
-						<input type="text" name="cheque" class="form-control">
-					</div>
-				</div>
-			</div>
-			</div>
-			
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Bill Due Date</label>
+							<div class="col-lg-5">
+								<input type="text" class="form-control datepicker" name="due_date" data-date-format="mm-dd-yy" placeholder="mm-dd-yy">
+							</div>
+						</div>
 
-			<div class="clear"></div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<label class="col-sm-3 control-label"></label>
-					<div class="col-sm-9">
-						<button type="submit" class="btn submitBtn" name="add_bill"><?php echo (isset($_GET['id']))? 'Update' : 'Add' ?> Purchase</button>
-					</div>
-			  	</div>
-			</div>
-			</form>
-		</div><!-- Row Close -->
-	</div><!-- Container Close -->
-</section>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Amount</label>
+							<div class="col-lg-5">
+								<input type="text" name="bill_amount" value="" class="form-control" required>
+							</div>
+						</div>
+						
+						<legend>Payment Mode:</legend>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Payment Type</label>
+							<div class="col-lg-5">
+								<select name="payment_type" id="payment_mode"  class="form-control">
+									<option value="cash">Cash</option>
+									<option value="cheque">Cheque</option>
+								</select>
+							</div>
+						</div>
+
+						<div id="payment_cheque_mode" style="display:none;">
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Bank Detail</label>
+								<div class="col-lg-5" style="margin-top:7px;">
+									<select name="bank_detail" class="form-control">
+										<option value="">Select Bank Branch</option>
+										<?php foreach ($bank_result as $bank) { ?>
+									    	<option value="<?php echo $bank->bank_id; ?>"><?php echo $bank->bank_name .' - '. $bank->bank_branch; ?></option>
+									    <?php
+											}
+										?>
+									</select>
+								</div>
+							</div>						
+
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Cheque #</label>
+								<div class="col-lg-5" style="margin-top:7px;">
+									<input type="text" name="cheque" class="form-control">
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-lg-9 col-lg-offset-3">
+								<button type="submit" class="btn btn-success btn-perspective btn-lg"  name="add_bill"><?php echo (isset($_GET['id']))? 'Update' : 'Add' ?> Supplier Bill</button>
+							</div>
+						</div>
+
+					</fieldset>
+				</form>
+			</div><!-- /.the-box -->
+		</div>		</div>
+	</div><!-- /.container-fluid -->
 <?php require_once 'footer.php'; ?>

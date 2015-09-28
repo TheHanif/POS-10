@@ -1,10 +1,68 @@
 <?php require_once 'header.php'; ?>
+<div class="page-content">
+	<div class="container-fluid">
 
+		<!-- Begin breadcrumb -->
+		<ol class="breadcrumb success rsaquo">
+			<li><a href="dashboard.php"><i class="fa fa-home"></i></a></li>
+			<li><a href="#">Reports</a></li>
+			<li class="active">Sale Person Report</li>
+		</ol>
+		
 
-<section>
-	<hr/>
-	<div class="container">
-		<div class="row">
+		<div class="panel panel-info">
+		  <div class="panel-heading">
+			<h3>Sale Person Report</h3>
+		  </div>
+		  <div class="panel-body">
+		<div class="the-box bg-primary no-border">
+	  		<form class="form-horizontal dashboardForm"  action="" method="post">
+				<div class="col-md-4">	
+					<div class="form-group">
+						<label for="p_cost" class="col-sm-12">Date: </label>
+						<div class="col-sm-12">
+							<div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd">
+			                    <input class="form-control" size="16" type="text" value="<?php echo (isset($_POST['to_date']))? $_POST['to_date'] : '' ?>">
+			                    <span class="input-group-addon" style="padding: 6px 10px 6px 30px;"><i class="fa fa-calendar"></i></span>
+			                </div>
+							<input type="hidden" id="dtp_input3" name="to_date" value="<?php echo (isset($_POST['to_date']))? $_POST['to_date'] : '' ?>" /><br/>
+						</div>
+					</div>
+				</div><!-- Col-md-3 Close -->
+
+				<div class="col-md-4">	
+					<div class="form-group">
+						<label for="person_name" class="col-sm-12">Sale Person: </label>
+						<?php 	$user = new user();
+								$all_user = $user->get_sales_user(); 
+						?>
+						<div class="col-sm-12">
+							<select name="person_name" data-placeholder="Select Sale Person" class="chosen-select form-control" tabindex="4">
+								<option value=""></option>
+								<?php 
+								foreach($all_user as $user){ ?>					
+										<option value="<?php echo $user->id; ?>"<?php if(isset($_POST['person_name'] ) && $_POST['person_name'] == $user->id){echo 'selected=selected';}?>><?php echo $user->fname; ?></option>
+								<?php
+								}
+								?>
+							</select>
+						</div>
+					</div>
+				</div><!-- Col-md-3 Close -->
+				
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="p_supplier" class="col-sm-12">&nbsp;</label>
+						<div class="col-sm-12">
+							<button type="submit" class="btn btn-success btn-perspective pull-right" name="show_report">Show Report</button>
+						</div>
+				  	</div>
+				</div>
+				</form>
+			<div class="clearfix" style="margin-bottom:10px;"></div>
+		</div><!-- Box Close -->
+
+		<div class="clearfix" style="margin-bottom:10px;"></div>
 			<?php 
 			$sales = new sales();
 			$openingbalance = new openingbalance();
@@ -27,75 +85,21 @@
 				$balance_date = $sales->_date('Y-m-d', $date);
 				$results = $sales->get_sale_person_report($person_name, $date);
 				$results_balance = $openingbalance->get_opening_date_balance($person_name, $balance_date);
-				// print_f($results);
+			//	print_f($results);
 			}
-			?>			
-		</div>
-	</div>
+			?>	
 	
-	<div class="container">
-		<div class="row">
-			<div class="tableHeading">
-				<p class="nomargin alignCenter"> Sale Person Report </p>
-			</div>
-			<form class="form-horizontal dashboardForm"  action="" method="post">
-			<div class="col-md-4">	
-				<div class="form-group">
-					<label for="p_cost" class="col-sm-12">Date: </label>
-					<div class="col-sm-12">
-						<div class="input-group date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd">
-		                    <input class="form-control" size="16" type="text" value="<?php echo (isset($_POST['to_date']))? $_POST['to_date'] : '' ?>">
-		                    <span class="input-group-addon" style="padding: 6px 10px 6px 30px;"><span class="glyphicon glyphicon-calendar"></span></span>
-		                </div>
-						<input type="hidden" id="dtp_input3" name="to_date" value="<?php echo (isset($_POST['to_date']))? $_POST['to_date'] : '' ?>" /><br/>
-					</div>
-				</div>
-			</div><!-- Col-md-3 Close -->
+		<!-- Begin page heading -->
+		
 
-			<div class="col-md-4">	
-				<div class="form-group">
-					<label for="person_name" class="col-sm-12">Sale Person: </label>
-					<?php 	$user = new user();
-							$all_user = $user->get_sales_user(); 
-					?>
-					<div class="col-sm-12">
-						<select name="person_name" data-placeholder="Select Sale Person" class="chosen-select" tabindex="4">
-							<option value=""></option>
-							<?php 
-							foreach($all_user as $user){ ?>					
-									<option value="<?php echo $user->id; ?>"<?php if(isset($_POST['person_name'] ) && $_POST['person_name'] == $user->id){echo 'selected=selected';}?>><?php echo $user->fname; ?></option>
-							<?php
-							}
-							?>
-						</select>
-					</div>
-				</div>
-			</div><!-- Col-md-3 Close -->
-			
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="p_supplier" class="col-sm-12">&nbsp;</label>
-					<div class="col-sm-12">
-						<button type="submit" class="btn submitBtn floatRight" name="show_report">Show Report</button>
-					</div>
-			  	</div>
-			</div>
-			</form>
-		</div><!-- Row Close -->
-	</div><!-- Container Close -->
-	
-	<div class="container" style="margin-bottom:50px; text-align:center;">
-		<div class="row">
-			<?php 
+		<div class="the-box full no-border">
+			<div class="table-responsive">
+				<?php 
 			if (isset($results)) { 
-				if(isset($results_balance[0]->ob_balance)){
+			// print_f($results);
 			?>
-					<div class="col-md-12"><h3>Opening Balance: <?php echo $opening_balance = $results_balance[0]->ob_balance;?></h3></div>
-			<?php 
-				}
-			?>
-			<table border="1" cellpadding="5" cellspacing="0" class="table table-hover tableView">
-				<tr>
+			<table class="table table-th-block table-primary">
+				<thead>
 					<th>No.</th>
 					<th>Sale ID</th>
 					<th>Shift Number</th>
@@ -104,7 +108,8 @@
 					<th>Payment Method</th>
 					<th>Bill Amount</th>
 					<th>Date</th>
-				</tr>
+				</thead>
+				<tbody>
 					<?php 
 					$count = 1;
 					$total = 0;
@@ -115,7 +120,7 @@
 					<td><?php echo $value->sale_id; ?></td>
 					<td><?php echo $value->sale_shift_number; ?></td>
 					<td><?php echo $value->sale_terminal_number; ?></td>
-					<td><?php echo $value->sale_bill_number; ?></td>
+					<td><a href="report_sale_invoice.php?bill=<?php echo $value->sale_id; ?>"><?php echo $value->sale_bill_number; ?></a></td>
 					<td><?php echo $value->sale_payment; ?></td>
 					<td><?php echo $total = $value->bill_amount; ?></td>
 					<td><?php echo $sales->_date('d-m-Y', $value->salepro_date )?></td>
@@ -145,7 +150,7 @@
 					<td></td>
 					<td></td>
 					<td>Opening Balance: </td>
-					<td><?php echo $opening_balance; ?></td>
+					<td><?php echo $results_balance[0]->ob_balance; ?></td>
 					<td></td>
 				</tr>
 				<?php 
@@ -161,7 +166,7 @@
 					<?php 
 						if(isset($results_balance[0]->ob_balance)){
 					?>
-					<td><?php echo $total_daily_sale+$opening_balance; ?></td>
+					<td><?php echo $total_daily_sale+$results_balance[0]->ob_balance; ?></td>
 					<?php 
 						}
 						else {
@@ -172,11 +177,22 @@
 					?>
 					<td></td>
 				</tr>
+				</tbody>
 			</table>
 			<?php }
 			?>
+			</div><!-- /.table-responsive -->
+		</div>	
+
+
+
+
+
+		  </div><!-- /.panel-body -->
+		  
 		</div>
+		
+		  
 	</div>
-	<div class="clear"></div>
-</section>
+</div><!-- /.container-fluid -->
 <?php require_once 'footer.php'; ?>
